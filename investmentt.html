@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">  
+    <title>Investment Planning with Le Complex</title>
+</head>
+<body>
+    <h1 class="first">Investment Planning with Le Complex</h1><hr>
+    <div id="homebutton">
+        <button onclick="location.href='index.html'">
+            <i class="fa-solid fa-house"></i> 
+            Back to Home</button> 
+    </div>
+    <form id="incomeForm">
+        <label for="Income" id="income">Enter Your Income (in ₹):</label>
+        <input type="number" id="eincome" class="Income" required><br>
+        <label for="saveamt" id="saveamt" >Amount to save (in ₹):</label>
+        <input type="number" id="amt" class="Income"  required>
+        <div id="option">
+        <p>Select Your Income Source:</p>
+        <input type="radio" id="soleearner" name="incomeSource" value="soleearner">
+        <label for="soleearner"><u>Sole Earner</u></label>
+        <br>
+        <input type="radio" id="others" name="incomeSource" value="others">
+        <label for="others"><u>Others Contributing</u></label>
+        <br>
+        </div>
+        <button id="allocate" type="button" onclick="calculateAllocation()">
+            <i class="fa-solid fa-calculator"></i>
+            Calculate Allocation</button>
+    </form>
+    <h2 id="color">Investment Breakdown</h2>
+    <p id="fixeddeposit"></p>
+    <p id="mutualfunds"></p>
+    <p id="gold"></p>
+    <p id="stocks"></p>
+    <p id="crypto"></p>
+
+
+
+    <script>
+        function calculateAllocation() {
+            let income = parseFloat(document.getElementById("eincome").value);
+            let saveamt = parseFloat(document.getElementById("amt").value);
+            const soleearner = document.getElementById("soleearner");
+            const others = document.getElementById("others");
+
+            if(income<=20000){
+                if(soleearner.checked){
+                    const fd=saveamt*0.5;
+                    const mf=saveamt*0.4;
+                    const gold=saveamt*0.1;
+                    document.getElementById("fixeddeposit").innerHTML = "50% IN FD : " + `₹${fd.toFixed(2)}`;
+                    document.getElementById("mutualfunds").innerHTML = "40% IN MUTUAL FUNDS : " + `₹${mf.toFixed(2)}`;
+                    document.getElementById("gold").innerHTML = "10% IN GOLD : " + `₹${gold.toFixed(2)}`;
+                } else if(others.checked){
+                    const fd=saveamt*0.3;
+                    const mf=saveamt*0.4;
+                    const gold=saveamt*0.2;
+                    const stks=saveamt*0.1;
+                    document.getElementById("fixeddeposit").innerHTML = "30% IN FD : " + `₹${fd.toFixed(2)}`;
+                    document.getElementById("mutualfunds").innerHTML = "40% IN MUTUAL FUNDS : " + `₹${mf.toFixed(2)}`;
+                    document.getElementById("gold").innerHTML = "20% IN GOLD : " + `₹${gold.toFixed(2)}`;
+                    document.getElementById("stocks").innerHTML = "10% IN STOCKS : " + `₹${stks.toFixed(2)}`;      
+                }
+            } else if(income>20000 && income<=50000){
+                if(soleearner.checked){
+                    const fd=saveamt*0.2;
+                    const mf=saveamt*0.5;
+                    const gold=saveamt*0.2;
+                    const stks=saveamt*0.1;
+                    document.getElementById("fixeddeposit").innerHTML = "20% IN FD : " + `₹${fd.toFixed(2)}`;
+                    document.getElementById("mutualfunds").innerHTML = "50% IN MUTUAL FUNDS : " + `₹${mf.toFixed(2)}`;
+                    document.getElementById("gold").innerHTML = "20% IN GOLD : " + `₹${gold.toFixed(2)}`;
+                    document.getElementById("stocks").innerHTML = "10% IN STOCKS : " + `₹${stks.toFixed(2)}`;  
+                } else if(others.checked){
+                    const fd=saveamt*0.15;
+                    const mf=saveamt*0.4;
+                    const gold=saveamt*0.25;
+                    const stks=saveamt*0.2;
+                    document.getElementById("fixeddeposit").innerHTML = "15% IN FD : " + `₹${fd.toFixed(2)}`;
+                    document.getElementById("mutualfunds").innerHTML = "40% IN MUTUAL FUNDS : " + `₹${mf.toFixed(2)}`;
+                    document.getElementById("gold").innerHTML = "25% IN GOLD : " + `₹${gold.toFixed(2)}`;
+                    document.getElementById("stocks").innerHTML = "20% IN STOCKS : " + `₹${stks.toFixed(2)}`;      
+                }
+            } else if(income>50000 && income<=100000){
+                if(soleearner.checked){
+                    const fd=saveamt*0.15;
+                    const mf=saveamt*0.35;
+                    const gold=saveamt*0.15;
+                    const stks=saveamt*0.3;
+                    const crypto=saveamt*0.05;
+                    document.getElementById("fixeddeposit").innerHTML = "15% IN FD : " + `₹${fd.toFixed(2)}`;
+                    document.getElementById("mutualfunds").innerHTML = "35% IN MUTUAL FUNDS : " + `₹${mf.toFixed(2)}`;
+                    document.getElementById("gold").innerHTML = "15% IN GOLD : " + `₹${gold.toFixed(2)}`;
+                    document.getElementById("stocks").innerHTML = "30% IN STOCKS : " + `₹${stks.toFixed(2)}`;
+                    document.getElementById("crypto").innerHTML = "5% IN CRYPTO : " + `₹${crypto.toFixed(2)}`;  
+                } else if(others.checked){
+                    const fd=saveamt*0.1;
+                    const mf=saveamt*0.3;
+                    const gold=saveamt*0.1;
+                    const stks=saveamt*0.4; 
+                    const crypto=saveamt*0.1; 
+                    document.getElementById("fixeddeposit").innerHTML = "10% IN FD : " + `₹${fd.toFixed(2)}`;
+                    document.getElementById("mutualfunds").innerHTML = "30% IN MUTUAL FUNDS : " + `₹${mf.toFixed(2)}`;
+                    document.getElementById("gold").innerHTML = "10% IN GOLD : " + `₹${gold.toFixed(2)}`;
+                    document.getElementById("stocks").innerHTML = "40% IN STOCKS : " + `₹${stks.toFixed(2)}`;
+                    document.getElementById("crypto").innerHTML = "10% IN CRYPTO : " + `₹${crypto.toFixed(2)}`;    
+                }
+            } else if (income > 100000) {
+        if (soleearner.checked) {
+            const fd = saveamt * 0.1;
+            const mf = saveamt * 0.35;
+            const gold = saveamt * 0.1;
+            const stks = saveamt * 0.38;
+            const crypto = saveamt * 0.07;
+            document.getElementById("fixeddeposit").innerHTML = "10% IN FD : "+ `₹${fd.toFixed(2)}`;
+            document.getElementById("mutualfunds").innerHTML = "35% IN MUTUAL FUNDS : "+ `₹${mf.toFixed(2)}`;
+            document.getElementById("gold").innerHTML = "10% IN GOLD : "+`₹${gold.toFixed(2)}`;
+            document.getElementById("stocks").innerHTML = "38% IN STOCKS : "+ `₹${stks.toFixed(2)}`;
+            document.getElementById("crypto").innerHTML = "7% IN CRYPTO : "+ `₹${crypto.toFixed(2)}`;
+        } else if (others.checked) {
+            const fd = saveamt* 0.05;
+            const mf = saveamt * 0.25;
+            const gold = saveamt * 0.1;
+            const stks = saveamt * 0.5;
+            const crypto = saveamt * 0.1;
+            document.getElementById("fixeddeposit").innerHTML = "5% IN FD : "+ `₹${fd.toFixed(2)}`;
+            document.getElementById("mutualfunds").innerHTML = "25% IN MUTUAL FUNDS : " + `₹${mf.toFixed(2)}`;
+            document.getElementById("gold").innerHTML = "10% IN GOLD : " + `₹${gold.toFixed(2)}`;
+            document.getElementById("stocks").innerHTML = "50% IN STOCKS : " + `₹${stks.toFixed(2)}`;
+            document.getElementById("crypto").innerHTML = "10% IN CRYPTO : "+ `₹${crypto.toFixed(2)}`;
+
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
