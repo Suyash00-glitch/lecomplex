@@ -67,6 +67,12 @@ button:active{
     left: 600px;
     height: 50px;
 }
+#riskhomebutton{
+position:absolute;
+bottom: -2200px;
+left: 600px;
+height: 50px;
+}
 #abc{
     color: white;
     font-size: large;
@@ -154,3 +160,11 @@ color: wheat;
 .hidden{
     display: none;
 }
+.risk label{
+    color: white;
+    padding: 0px;
+}
+input[type=number]{
+    height:40px
+}
+
