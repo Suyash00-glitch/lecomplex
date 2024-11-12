@@ -1,0 +1,156 @@
+body{
+    background-color: rgb(1, 3, 1);
+    background-image: url("bckimgg.jpg");
+    background-size:cover;
+    font-family: 'Roboto', sans-serif;
+    }
+div{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-evenly;
+    height: 100px;
+    margin-top: 100px;
+    
+   }
+   
+   
+#about{
+    padding: 20px;
+    border-radius:10px ;
+    box-shadow: 0 4px 6px rgb(0,0,0,0.1);
+    
+    background-color: black;
+
+}
+p{
+    font-size:x-large;
+    color:white;
+}
+.first{
+    color:white;
+    text-align: center;
+        background: linear-gradient(to right, #0d6410, #9ef7a1);
+        padding: 20px;
+        color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        
+    
+    
+}
+h4{
+    color: rgb(180, 6, 20);
+    font-size: x-large;
+}
+button{
+    background-color:#4CAF50;
+    color:white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size:16px;
+    text-decoration:none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+button:hover{
+    background-color: #45a049;  
+    border-color: #388E3C;  
+}
+button:active{
+    background-color: white;
+    color: black;
+}
+#homebutton{
+    position:absolute;
+    bottom: -400px;
+    
+    left: 600px;
+    height: 50px;
+}
+#abc{
+    color: white;
+    font-size: large;
+    text-align: center;
+    position:fixed;
+    left:250px;
+    top: 130px;
+
+}
+#amount{
+    color: white;
+    font-size: large;
+    text-align: center;
+    position:fixed;
+    right:220px;
+    top:130px;
+}
+#duration{
+    color: white;
+    font-size: large;
+    text-align: center;
+    position:fixed;
+    right:550px;
+    top:130px;
+}
+
+#myform{
+    align-self:center;
+
+}
+.Income{
+    display: flex;
+    flex-direction:row;
+    height: 30px;
+justify-content: space-evenly;   
+    color:darkolivegreen;
+    font-size: x-large;
+}
+#container{
+display: flex;
+flex-direction: row;
+height: 250px;
+justify-content: space-evenly;
+color: wheat;
+}
+#calculate{
+    text-align: center;
+    margin-left: 140px;
+}
+#result
+{
+    color: wheat;
+    font-size: x-large;
+    margin-bottom: 100px;
+}
+.savingl
+{  
+    height: 70px;
+    font-size: large;
+    color: wheat;
+}
+#option{
+    display: flex;
+    flex-direction: row;
+    justify-content:  space-between;
+    color:white;
+    font-size: x-large;
+}
+#income{
+    color: rgb(98, 143, 173);
+    font-size: x-large;
+}
+#saveamt{
+    color:rgb(98, 143, 173);
+    font-size:x-large ;
+}
+#allocate{
+  
+  margin-left: 550px;
+  margin-top: 50px;  
+}
+#color{
+    color: white;
+}
+.hidden{
+    display: none;
+}
