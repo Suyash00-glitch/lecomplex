@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #chat-container {
+            background-color: white;
+            width: 350px;
+            height: 500px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        #messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+        }
+        #user-input {
+            display: flex;
+            padding: 10px;
+        }
+        #user-input input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        #user-input button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #user-input button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="messages"></div>
+        <div id="user-input">
+            <input type="text" id="user-question" placeholder="Ask a finance-related question...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const messagesDiv = document.getElementById('messages');
+
+        // Function to display a message
+        function displayMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.textContent = `${sender}: ${message}`;
+            messageElement.style.marginBottom = '10px';
+            if (sender === 'User') {
+                messageElement.style.fontWeight = 'bold';
+            } else {
+                messageElement.style.color = 'green';
+            }
+            messagesDiv.appendChild(messageElement);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Function to send user input to the bot and display response
+        function sendMessage() {
+            const userInput = document.getElementById('user-question').value;
+            if (!userInput.trim()) return;  // Don't send if input is empty
+
+            // Display user's question
+            displayMessage(userInput, 'User');
+
+            // Process the finance-related question and provide a bot response
+            getBotResponse(userInput);
+
+            // Clear input field
+            document.getElementById('user-question').value = '';
+        }
+
+        // Simple example function for bot response (to be expanded with actual logic)
+        function getBotResponse(userInput) {
+            let botResponse = 'Sorry, I can only answer finance-related questions in the Indian context.';
+
+            // Simple keyword-based responses (could be replaced with a more advanced system or API)
+            if (userInput.toLowerCase().includes('stock market')) {
+                botResponse = 'The Indian stock market is primarily composed of BSE (Bombay Stock Exchange) and NSE (National Stock Exchange).';
+            } else if (userInput.toLowerCase().includes('mutual funds')) {
+                botResponse = 'Mutual funds in India are regulated by SEBI (Securities and Exchange Board of India) and are a popular investment option.';
+            } else if (userInput.toLowerCase().includes('cryptocurrency')) {
+                botResponse = 'Cryptocurrency regulation in India is still evolving, with the government discussing potential frameworks for its use.';
+            }
+
+            // Display bot's response
+            displayMessage(botResponse, 'Bot');
+        }
+    </script>
+</body>
+</html>
