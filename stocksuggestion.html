@@ -1,0 +1,113 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">  
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Budget Tracking</title>
+</head>
+<body>
+    <h1 class="first">Stock Suggestions</h1><hr>
+    <div id="homebutton">
+        <button onclick="location.href='index.html'">
+            <i class="fa-solid fa-house"></i> 
+            Back to Home</button> 
+    </div>
+    <div class="stocks">
+        <button onclick="shownextoptions('stockstobuy')">
+            <i class="fa-solid fa-chart-line"></i> 
+            Stocks to buy </button>
+        <button onclick="shownextoptions('mutualfunds')">
+            <i class="fa-solid fa-handshake"></i> 
+            Mutual Funds</button>
+    </div>
+    <div id="stockstobuy" class="hidden">
+        <h3 style="color:white">Choose Further</h3>
+        <button onclick="showlist('stockstobuy','High')">
+            <i class="fa-solid fa-exclamation-triangle"></i> 
+            High Risk</button>
+        <button onclick="showlist('stockstobuy','Moderate')">
+            <i class="fa-solid fa-balance-scale"></i> 
+            Moderate Risk</button>
+        <button onclick="showlist('stockstobuy','Low')">
+            <i class="fa-solid fa-leaf"></i>
+            Low Risk</button>
+    </div>
+    <div id="mutualfunds" class="hidden">
+        <button onclick="showlist('mutualfunds','High')">
+            <i class="fa-solid fa-exclamation-triangle"></i>
+            High Risk</button>
+        <button onclick="showlist('mutualfunds','Moderate')">
+            <i class="fa-solid fa-balance-scale"></i> 
+            Moderate Risk</button>
+        <button onclick="showlist('mutualfunds','Low')">
+            <i class="fa-solid fa-leaf"></i>
+            Low Risk</button>
+    </div>
+    <div id="result">
+
+    </div>
+    <script>
+         function shownextoptions(option)
+         {
+            document.getElementById('stockstobuy').classList.add('hidden');
+            if(option === 'stockstobuy'){
+                document.getElementById('stockstobuy').classList.remove('hidden');
+             }
+             else if(option === 'mutualfunds'){
+                document.getElementById('mutualfunds').classList.remove('hidden');
+             }
+         }
+         function showlist(option,suboption)
+         {
+            let nameslist = [];
+            if(option==='stockstobuy'){
+                if(suboption==='High'){
+                    nameslist=[' Adani Enterprises: 5-year CAGR ~ 50%','Dixon Technologies: 5-year CAGR ~ 35%','Route Mobile: 5-year CAGR ~ 30%','Aavas Financiers: 5-year CAGR ~ 27%','Happiest Minds: 5-year CAGR ~ 45%','Tanla Platforms: 5-year CAGR ~ 55%','Muthoot Finance: 5-year CAGR ~ 20%','Laurus Labs: 5-year CAGR ~ 30%','Polycab India: 5-year CAGR ~ 36%','Indiabulls Ventures: 5-year CAGR ~ 40%'];
+                }
+                else if(suboption==='Moderate'){
+                    nameslist=['Infosys: 5-year CAGR ~ 18%','Tata Consultancy Services: 5-year CAGR ~ 15%','HDFC Bank: 5-year CAGR ~ 14%','SBI Life Insurance: 5-year CAGR ~ 12%','Bajaj Finance: 5-year CAGR ~ 22%','ICICI Lombard: 5-year CAGR ~ 13%','HDFC Asset Management: 5-year CAGR ~ 14%','Reliance Industries: 5-year CAGR ~ 17%','L&T Technology Services: 5-year CAGR ~ 19%','Godrej Properties: 5-year CAGR ~ 16%'];
+                }
+                else if(suboption==='Low'){
+                  nameslist=  ['Hindustan Unilever: 5-year CAGR ~ 10%','Asian Paints: 5-year CAGR ~ 12%','Nestle India: 5-year CAGR ~ 11%','ITC: 5-year CAGR ~ 9%','Tata Consumer Products: 5-year CAGR ~ 10%','Pidilite Industries: 5-year CAGR ~ 13%','Bajaj Auto: 5-year CAGR ~ 8%','Colgate-Palmolive: 5-year CAGR ~ 7%','Marico: 5-year CAGR ~ 9%','Dabur India: 5-year CAGR ~ 8%'];
+                }
+                
+            }
+            else if(option==='mutualfunds'){
+                if(suboption=='High'){
+                    nameslist=['Quant Small Cap Fund: Known for high returns, with a 5-year CAGR around 42%','Nippon India Small Cap Fund: Offers around 37.6% 5-year CAGR, a top choice in the small-cap category'];
+                }
+                else if(suboption==='Moderate'){
+                    nameslist=['Parag Parikh Flexi Cap Fund: Provides moderate returns with a 5-year CAGR of approximately 19.9%, balancing equity exposure with some stability','Mirae Asset Hybrid Equity Fund: Offers balanced returns by investing in both equity and debt, making it a solid moderate-risk option'];
+                }
+                else if(suboption==='Low'){
+                    nameslist=['ICICI Prudential Liquid Fund: Features a low risk level with returns primarily from government securities and bonds, yielding a steady 5-7% CAGR','SBI Savings Fund: Focuses on debt instruments, yielding around 6% over five years, ideal for low-risk investments'];
+                }
+            
+            }        
+           displaynames(nameslist);
+
+           
+         }
+
+         function displaynames(nameslist) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = ''; 
+
+            if (nameslist.length > 0) {
+                const ul = document.createElement('ul');
+                nameslist.forEach(function (item) {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    ul.appendChild(li);
+                });
+                resultDiv.appendChild(ul);
+            } else {
+                resultDiv.innerHTML = 'No suggestions available.';
+            }
+        }
+
+
+    </script>
