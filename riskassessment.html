@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">  
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Risk assessment</title>
+</head>
+<body>
+    <h1 class="first">Risk Assessment Calculator</h1><hr>
+    <div id="riskhomebutton">
+        <button onclick="location.href='index.html'">
+            <i class="fa-solid fa-house"></i> 
+            Back to Home</button> 
+    </div>
+    <form id="riskform">
+    <div class="risk">
+        <p>Are you the sole earner in the family?</p>
+        <input type="radio"  name="soleEarner" value="yes" required>
+        <label for="soleEarner"><u>Yes</u></label>
+        <input type="radio"  name="soleEarner" value="no">
+        <label for="soleEarner"><u>No</u></label> 
+    </div>
+    <div  class="risk">
+       <p>Are you a student?</p>
+        <input type="radio"  name="student" value="yes" required>
+        <label for="student"><u>Yes</u></label>
+        <input type="radio" name="student" value="no">
+        <label for="student"><u>No</u></label>
+    </div>
+    <div class="risk" id="studentLoansQuestion" style="display:none;">
+            <p>Do you have any student loan?</p>
+            <input type="radio" name="studentLoan" value="yes">
+            <label><u>Yes</u></label>
+            <input type="radio" name="studentLoan" value="no">
+            <label><u>No</u></label>
+    </div>
+    <div class="risk">
+        <p>Enter your age(18-70)</p>
+        <input type="number" name="age" min="18" max="70" required>
+    </div>
+    <div class="risk">
+        <p>Do you have any big loans(home or vehicle loans)?</p>
+        <input type="radio"  name="bigLoans" value="yes" required>
+        <label for="bigLoans"><u>Yes</u></label>
+        <input type="radio"  name="bigLoans" value="no">
+        <label for="bigLoans"><u>No</u></label>
+    </div>
+    <div class="risk">
+        <p>Do you save/invest 20% of your salary?</p>
+        <input type="radio" name="lowSavings" value="yes" required>
+        <label for="lowSavings"><u>Yes</u></label>
+        <input type="radio"  name="lowSavings" value="no">
+        <label for="lowSavings"><u>No</u></label>
+    </div>
+    <div class="risk">
+        <p>Do you have stable income(less than 10% variation)?</p>
+        <input type="radio" name="stableIncome" value="yes" required>
+        <label for="stableIncome"><u>Yes</u></label>
+        <input type="radio"  name="stableIncome" value="no">
+        <label for="stableIncome"><u>No</u></label>
+    </div>
+    <div class="risk">
+        <p>On a scale of 1-10 how likely are you to panic over losses?</p>
+        <input type="number"  name="panicLevel" min="1" max="10" required>
+    </div>
+    <div class="risk" >
+         <p>Do you have 3 or more months salary saved up?</p>
+        <input type="radio"  name="savings" value="yes" required>
+        <label ><u>Yes</u></label>
+        <input type="radio"  name="savings" value="no">
+        <label ><u>No</u></label>
+    </div>
+    <div class="risk">
+        <p>Do you have more than one stream of income?</p>
+        <input type="radio" name="multipleIncome" value="yes" required>
+        <label><u>Yes</u></label>
+        <input type="radio"  name="multipleIncome" value="no">
+        <label><u>No</u></label>
+    </div>
+    <div class="risk">
+        <p>How many people are fully/partially dependent on you financially?</p>
+        <input type="number" name="dependents" min="0" required>
+    </div>
+    <div id="calculate">
+        <button type="button" onclick="calculateRisk()" id="calculate">
+          <i class="fa-solid fa-calculator"></i>
+          Calculate</button><br><br><br>
+  </div>
+    </form>
+    <div id="scoreOutput" style="color: white; font-size: x-large;"></div>
+    <div id="suggestionOutput"  style="color: white; font-size: x-large;"></div>
+
+    <script>
+        document.querySelectorAll('input[name="student"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('studentLoansQuestion').style.display = this.value === "yes" ? "block" : "none";
+            });
+        });
+
+        function calculateRisk() {
+            let total = 100;
+            const form = document.forms["riskform"];
+            console.log('form values',form);
+
+            if (form["soleEarner"].value === "yes") total -= 10;
+
+            if (form["student"].value === "yes") {
+                total -= 5; 
+                if (form["studentLoan"].value === "yes") total -= 10; 
+                else total -= 5;  
+            }
+
+            const age = parseInt(form["age"].value);
+            if (age > 25 && age <= 35) total -= 2;
+            else if (age > 35 && age <= 45) total -= 5;
+            else if (age > 45 && age <= 55) total -= 7;
+            else if (age > 55) total -= 10;
+
+            if (form["bigLoans"].value === "yes") total -= 5;
+
+            if (form["lowSavings"].value === "yes") total -= 5;
+
+            if (form["stableIncome"].value === "no") total -= 15;
+
+            total -= parseInt(form["panicLevel"].value);
+
+            if (form["savings"].value === "no") total -= 10;
+
+            if (form["multipleIncome"].value === "no") total -= 10;
+
+            const dependents = parseInt(form["dependents"].value);
+            if (dependents > 0 && dependents < 3) total -= 5;
+            else if (dependents >= 3 && dependents <= 5) total -= 10;
+            else if (dependents > 5) total -= 15;
+
+            document.getElementById("scoreOutput").textContent = `Score: ${total}`;
+            let suggestion = "";
+            if (total >= 80) suggestion = "Your score is too good you can invest in NFT, Crypto, Small and mid cap stocks";
+            else if (total >= 60) suggestion = " Your score is average enough you can invest in Mid and large cap stocks, small and mid cap mutual funds";
+            else if (total >= 40) suggestion = " Your score is little low try investing Mid and large cap mutual funds, SGB, real estate";
+            else suggestion = " your score is too low try investing in FD, Large cap mutual funds, Physical/Digital gold for improvement";
+
+            document.getElementById("suggestionOutput").textContent = `Suggestion: ${suggestion}`;
+        }
+    </script>
+</body>
+</html>
