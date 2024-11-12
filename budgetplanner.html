@@ -1,0 +1,100 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">  
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Budget Tracking</title>
+</head>
+<body><i>
+    <h1 class="first">Welcome to Budget Tracking</h1><hr>
+    <div id="homebutton">
+        <button onclick="location.href='index.html'">
+            <i class="fa-solid fa-house"></i> 
+            Back to Home</button> 
+    </div>
+   
+    <form id="myForm">
+        <div id="income">
+            <label for="Income"><b>Enter Income</b></label>
+            <input type="number" id="Income" name="Income" required>
+        </div>
+    </form></i><i>
+
+    <div class="budgets">
+        <button id="highsavings">
+            <i class="fa-solid fa-piggy-bank"></i>
+            <br><br>  High Savings</button>
+        <button id="savingsandleisure">
+             <i class="fa-solid fa-piggy-bank"></i><i class="fa-solid fa-umbrella-beach"></i>
+               <br><br> Savings and Leisure</button>
+        <button id="highleisure">
+            <i class="fa-solid fa-cocktail"></i>
+               <br><br> High Leisure</button>
+        <button id="onlyexpenses">
+           <i class="fa-solid fa-cart-arrow-down"></i>
+               <br><br> Only Expenses</button>
+    </div>
+
+    <div id="result">
+        <p id="dailyexpense">Daily Expense: -</p>
+        <p id="totalsavings">Total Savings: -</p>
+        <p id="totalleisure">Total Leisure: -</p>
+    </div>
+  </i>
+    <script>
+    
+       
+    let de, ts, tl, i;
+        function displayResults(dailyExpense, totalSavings, totalLeisure) {
+            document.getElementById("dailyexpense").innerHTML = "Daily Expense:  ₹" + dailyExpense.toFixed(2);
+            if (totalSavings !== undefined) {
+                document.getElementById("totalsavings").innerHTML = "Total Savings:  ₹" + totalSavings.toFixed(2);
+            } else {
+                document.getElementById("totalsavings").innerHTML = "Total Savings: -";
+            }
+            if (totalLeisure !== undefined) {
+                document.getElementById("totalleisure").innerHTML = "Total Leisure:  ₹" + totalLeisure.toFixed(2);
+            } else {
+                document.getElementById("totalleisure").innerHTML = "Total Leisure: -";
+            }
+        }
+        function getIncome() {
+            let income = document.getElementById("Income").value.trim();
+            income = Number(income);
+            if (isNaN(income) || income <= 0) {
+                alert("Please enter a valid positive number for income.");
+                return null;
+            }
+            return income;
+        }
+        function calculateResults(calculationMethod) {
+            i = getIncome();
+            if (i !== null) {
+                const results = calculationMethod(i);
+                displayResults(...results);
+            }
+        }
+
+        document.getElementById("highsavings").onclick = function() {
+            calculateResults(i => [(3 * i) / 110, (2 * i) / 5]);
+        };
+
+        document.getElementById("savingsandleisure").onclick = function() {
+            calculateResults(i => [i / 40, i / 5, i / 4]);
+        };
+
+        document.getElementById("highleisure").onclick = function() {
+            calculateResults(i => [(3 * i) / 110, undefined, (2 * i) / 5]);
+        };
+
+        document.getElementById("onlyexpenses").onclick = function() {
+            calculateResults(i => [i / 22]);
+        };
+    
+    </script>
+</body>
+</html>
+        
