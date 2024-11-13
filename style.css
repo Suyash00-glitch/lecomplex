@@ -1,7 +1,8 @@
 body{
-    background-color: rgb(1, 3, 1);
-    background-image: url("bckimgg.jpg");
-    background-size:cover;
+   
+    background:linear-gradient(135deg, #3b0a45,#7b4397,#d3a0e8);
+    background-size: cover;
+    background-position: center;
     font-family: 'Roboto', sans-serif;
     }
 div{
@@ -10,10 +11,7 @@ div{
     justify-content: space-evenly;
     height: 100px;
     margin-top: 100px;
-    
-   }
-   
-   
+}
 #about{
     padding: 20px;
     border-radius:10px ;
@@ -22,35 +20,33 @@ div{
     background-color: black;
 
 }
-p{
+.card p{
     font-size:x-large;
-    color:white;
+    color:black;
 }
 .first{
     color:white;
     text-align: center;
-        background: linear-gradient(to right, #0d6410, #9ef7a1);
+        background: linear-gradient(to right, #369c39, #9ef7a1);
         padding: 20px;
         color: white;
         border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        
-    
-    
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);    
 }
-h4{
-    color: rgb(180, 6, 20);
-    font-size: x-large;
-}
-button{
-    background-color:#4CAF50;
+.second{
     color:white;
+    text-align: center;
+}
+.card button{
+    background-color:#4CAF50;
+    color:rgb(8, 5, 5);
     padding: 12px 20px;
     border-radius: 8px;
     font-size:16px;
     text-decoration:none;
     cursor: pointer;
     transition: all 0.3s;
+    height: 50px;
 }
 button:hover{
     background-color: #45a049;  
@@ -63,14 +59,26 @@ button:active{
 #homebutton{
     position:absolute;
     bottom: -400px;
-    
     left: 600px;
+    height: 50px;
+}
+#investhomebutton1{
+    position:absolute;
+    bottom: -600px;
+    left: 550px;
+    height: 50px;
+
+}
+#savinghomebutton{
+    position: absolute;
+    bottom: -425px;
+    left: 560px;
     height: 50px;
 }
 #riskhomebutton{
 position:absolute;
 bottom: -2200px;
-left: 600px;
+left: 550px;
 height: 50px;
 }
 #abc{
@@ -111,43 +119,75 @@ justify-content: space-evenly;
     color:darkolivegreen;
     font-size: x-large;
 }
-#container{
+.container{
 display: flex;
 flex-direction: row;
 height: 250px;
 justify-content: space-evenly;
-color: wheat;
+color:white;
 }
 #calculate{
     text-align: center;
-    margin-left: 140px;
+    margin-left: 40px;
+    margin-right: 40px;
+    display: flex;
+    justify-content: center; 
+    margin-top:30px;
+    width: 100%;
+}
+#calculate2{
+    position: relative;
+    margin-left: 40px;
+    margin-right: 50px;
+    margin-top:30px;
+    margin-bottom: 78px;
+    
 }
 #result
 {
-    color: wheat;
-    font-size: x-large;
-    margin-bottom: 100px;
+    text-align: center;
+    margin-top: 150px;
+    margin-left: 250px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow:0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 800px;
 }
 .savingl
 {  
     height: 70px;
-    font-size: large;
-    color: wheat;
+    font-size:28px;
+    color: black;
 }
-#option{
+#risk{
+    color:white;
+    font-size: x-large;
+}
+#option
+{
     display: flex;
-    flex-direction: row;
+    flex-direction:column;
     justify-content:  space-between;
     color:white;
     font-size: x-large;
 }
-#income{
-    color: rgb(98, 143, 173);
-    font-size: x-large;
+#income input label{
+    padding:0px;
+    font-size: 32px;
+    width: 100%;
+    max-width: 300px;
+    margin:0px;
+    border-radius: 8px;
+    border:1px solid #ccc;
+
 }
-#saveamt{
-    color:rgb(98, 143, 173);
-    font-size:x-large ;
+#saveamt input label{
+    padding:0px;
+    font-size: 32px;
+    max-width: fit-content;
+    margin:0px;
+    border-radius: 8px;
+    border:1px solid #ccc;
 }
 #allocate{
   
@@ -155,7 +195,7 @@ color: wheat;
   margin-top: 50px;  
 }
 #color{
-    color: white;
+    color:black;
 }
 .hidden{
     display: none;
@@ -167,4 +207,23 @@ color: wheat;
 input[type=number]{
     height:40px
 }
+.card{
+
+    border:1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+
+}
+#qstn{
+    color:white;
+    font-size: 25px;
+}
+
+
+
+
+
 
