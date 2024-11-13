@@ -9,37 +9,48 @@
 </head>
 <body>
     <h1 class="first">Investment Planning with Le Complex</h1><hr>
-    <div id="homebutton">
+    <div id="investhomebutton1" class="card">
         <button onclick="location.href='index.html'">
             <i class="fa-solid fa-house"></i> 
             Back to Home</button> 
     </div>
+
+    
     <form id="incomeForm">
-        <label for="Income" id="income">Enter Your Income (in ₹):</label>
-        <input type="number" id="eincome" class="Income" required><br>
-        <label for="saveamt" id="saveamt" >Amount to save (in ₹):</label>
+        <div class="card">
+        <label for="Income" id="income" style="font-size: 25px;">Enter Your Income (in ₹):</label>
+        <input type="number" id="eincome" class="Income" required>
+        </div>
+        <div class="card">
+        <label for="saveamt" id="saveamt" style="font-size: 25px;" >Amount to save (in ₹):</label>
         <input type="number" id="amt" class="Income"  required>
-        <div id="option">
-        <p>Select Your Income Source:</p>
+        </div>
+        <div class="option">
+        <p style="font-size: 25px; color: white;">Select Your Income Source:</p>
         <input type="radio" id="soleearner" name="incomeSource" value="soleearner">
-        <label for="soleearner"><u>Sole Earner</u></label>
+        <label for="soleearner" style="font-size: 25px; color: white;"><u>Sole Earner</u></label>
         <br>
         <input type="radio" id="others" name="incomeSource" value="others">
-        <label for="others"><u>Others Contributing</u></label>
+        <label for="others" style="font-size: 25px; color: white;"><u>Others Contributing</u></label>
         <br>
         </div>
-        <button id="allocate" type="button" onclick="calculateAllocation()">
-            <i class="fa-solid fa-calculator"></i>
-            Calculate Allocation</button>
+        <div id="calculate">
+            <div class="card">
+            <button type="button" onclick="calculateAllocation()">
+                <i class="fa-solid fa-calculator"></i>
+                Calculate Allocation</button>
+            </div>
+        </div>
     </form>
+    <div class="card">
     <h2 id="color">Investment Breakdown</h2>
     <p id="fixeddeposit"></p>
     <p id="mutualfunds"></p>
     <p id="gold"></p>
     <p id="stocks"></p>
     <p id="crypto"></p>
-
-
+    </div>
+    
 
     <script>
         function calculateAllocation() {
