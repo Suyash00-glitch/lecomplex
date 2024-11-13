@@ -10,44 +10,59 @@
 </head>
 <body>
     <h1 class="first">Stock Suggestions</h1><hr>
-    <div id="homebutton">
+    <div id="homebutton" class="card">
         <button onclick="location.href='index.html'">
             <i class="fa-solid fa-house"></i> 
             Back to Home</button> 
     </div>
     <div class="stocks">
+        <div class="card">
         <button onclick="shownextoptions('stockstobuy')">
             <i class="fa-solid fa-chart-line"></i> 
             Stocks to buy </button>
+        </div>
+        <div class="card">
         <button onclick="shownextoptions('mutualfunds')">
             <i class="fa-solid fa-handshake"></i> 
             Mutual Funds</button>
+        </div>
     </div>
     <div id="stockstobuy" class="hidden">
         <h3 style="color:white">Choose Further</h3>
+        <div class="card">
         <button onclick="showlist('stockstobuy','High')">
             <i class="fa-solid fa-exclamation-triangle"></i> 
             High Risk</button>
+        </div>
+        <div class="card">
         <button onclick="showlist('stockstobuy','Moderate')">
             <i class="fa-solid fa-balance-scale"></i> 
             Moderate Risk</button>
+        </div>
+            <div class="card">
         <button onclick="showlist('stockstobuy','Low')">
             <i class="fa-solid fa-leaf"></i>
             Low Risk</button>
+            </div>
     </div>
     <div id="mutualfunds" class="hidden">
+        <div class="card">
         <button onclick="showlist('mutualfunds','High')">
             <i class="fa-solid fa-exclamation-triangle"></i>
             High Risk</button>
+        </div>
+            <div class="card">
         <button onclick="showlist('mutualfunds','Moderate')">
             <i class="fa-solid fa-balance-scale"></i> 
             Moderate Risk</button>
+            </div>
+            <div class="card">
         <button onclick="showlist('mutualfunds','Low')">
             <i class="fa-solid fa-leaf"></i>
             Low Risk</button>
+            </div>
     </div>
-    <div id="result">
-
+    <div class="result">
     </div>
     <script>
          function shownextoptions(option)
