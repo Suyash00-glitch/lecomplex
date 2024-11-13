@@ -10,27 +10,34 @@
 
 </head>
 <body>
-  <h2 class="first"><u>Savings Goal Calculator</u></h2> 
-  <div id="homebutton">
+  <h1 class="first">Savings Goal Calculator</h1> 
+  <div id="savinghomebutton" class="card">
     <button onclick="location.href='index.html'">
       <i class="fa-solid fa-house"></i> 
       Back to Home</button> 
 </div>
   <div class="container">
-    <label for="goalAmount" class="savingl">Goal Amount:</label>
+    <div class="card">
+    <label for="goalAmount" class="savingl" style="color: black;">Goal Amount:</label>
     <input type="number" id="goalAmount" placeholder="Enter the amount to save" required>
+    </div>
+    <div class="card">
     <label for="months" class="savingl">Number of Months:</label>
     <input type="number" id="months" placeholder="Enter the number of months" required>
+    </div>
+    <div class="card">
     <label for="monthlyIncome" class="savingl">Monthly Income:</label>
     <input type="number" id="monthlyIncome" placeholder="Enter your monthly income" required>
-   
+    </div>
   </div>
-    <div id="calculate">
+  <div id="calculate">
+      <div class="card">
       <button onclick="calculateSavings()" id="calculate">
         <i class="fa-solid fa-calculator"></i>
         Calculate</button><br><br><br>
 </div>
-<div id="result">
+    </div>
+<div id="result" class="card">
  
 </div>
 
