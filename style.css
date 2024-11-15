@@ -13,11 +13,14 @@ div{
     margin-top: 100px;
 }
 #about{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
     padding: 20px;
     border-radius:10px ;
     box-shadow: 0 4px 6px rgb(0,0,0,0.1);
-    
-    background-color: black;
+    background-color: rgb(223, 74, 236);
+    color: black;
 
 }
 .card p{
@@ -27,7 +30,7 @@ div{
 .first{
     color:white;
     text-align: center;
-        background: linear-gradient(to right, #369c39, #9ef7a1);
+        background: linear-gradient(to right, #52024e, #4e014e);
         padding: 20px;
         color: white;
         border-radius: 10px;
@@ -38,7 +41,7 @@ div{
     text-align: center;
 }
 .card button{
-    background-color:#4CAF50;
+    background-color:#db09db; 
     color:rgb(8, 5, 5);
     padding: 12px 20px;
     border-radius: 8px;
@@ -49,8 +52,8 @@ div{
     height: 50px;
 }
 button:hover{
-    background-color: #45a049;  
-    border-color: #388E3C;  
+    background-color: #b4078f;  
+    border-color: #cc0679;  
 }
 button:active{
     background-color: white;
@@ -63,6 +66,13 @@ button:active{
     height: 50px;
 }
 #investhomebutton1{
+    position:absolute;
+    bottom: -600px;
+    left: 550px;
+    height: 50px;
+
+}
+#investhomebutton{
     position:absolute;
     bottom: -600px;
     left: 550px;
@@ -221,7 +231,10 @@ input[type=number]{
     color:white;
     font-size: 25px;
 }
-
+#about{
+    font-size: larger;
+    
+}
 
 
 
