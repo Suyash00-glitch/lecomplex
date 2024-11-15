@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .main-content {
+            display: flex;
+            justify-content: space-between;  
+            align-items: flex-start;
+            width: 80%;  
+            margin-top: 20px;
+        }
+        .about-section {
+            width: 60%;
+        }
+
+        h1.second {
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        #about {
+            font-size: 1.2rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        .right-cards {
+            width: 35%;  
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            border-bottom: 2px solid #ccc;
+        }
+
+        .card p {
+            margin-top: 10px;
+            color: #333;
+        }
+        #savinghomebutton button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            bottom: -1000px;
+            left: 560px;
+            height: 50px;
+        }
+        #savinghomebutton button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div id="savinghomebutton" class="card">
+        <button onclick="location.href='index.html'">
+            <i class="fa-solid fa-house"></i> 
+            Back to Home
+        </button> 
+    </div>
+
+    <div class="main-content">
+        <div class="about-section">
+            <h1 class="second"><u>ABOUT US</u></h1>
+            <p id="about">
+                Le Complex is a team of first-year engineering students from NMAMIT college focused on creating innovative solutions to everyday challenges.
+                Our financial tool is designed to help people manage their finances more effectively, offering features that simplify budgeting, savings, and financial planning.
+                We're driven by a passion for technology and a commitment to making personal finance accessible to everyone.
+            </p>
+            <p id="about">
+                key featureews:
+                gapg<br>
+                gapg<br>
+                gapgg<br>
+                gapggg<br>
+                gapggg<br>
+
+            </p>
+        </div>
+        <div class="right-cards">
+            <div class="card">
+                <img src="pr.jpg" alt="Image 1">
+                <p>Developer 1</p>
+            </div>
+            <div class="card">
+                <img src="rish.jpg" alt="Image 2">
+                <p>Developer 2</p>
+            </div>
+            <div class="card">
+                <img src="suiii.jpg" alt="Image 3">
+                <p>Developer 3</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
