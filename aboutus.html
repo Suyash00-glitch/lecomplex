@@ -16,7 +16,8 @@
             justify-content: center;
             align-items: flex-start;
             min-height: 100vh;
-            background-color: #f4f4f4;
+            background:linear-gradient(135deg, #3b0a45,#7b4397,#d3a0e8);
+    
         }
         .main-content {
             display: flex;
@@ -31,12 +32,12 @@
 
         h1.second {
             font-size: 2.5rem;
-            color: #333;
+            color:#c7c2c2;
         }
 
         #about {
             font-size: 1.2rem;
-            color: #666;
+            color:white;
             line-height: 1.6;
         }
         .right-cards {
@@ -59,26 +60,38 @@
             height: auto;
             border-bottom: 2px solid #ccc;
         }
+        .card button{
+            background-color:#db09db; 
+    color:rgb(8, 5, 5);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size:16px;
+    text-decoration:none;
+    cursor: pointer;
+    transition: all 0.3s;
+    height: 50px;
+        }
 
         .card p {
             margin-top: 10px;
             color: #333;
         }
-        #savinghomebutton button {
-            padding: 10px 20px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            position: absolute;
-            bottom: -1000px;
-            left: 560px;
-            height: 50px;
+        #savinghomebutton{
+    
+    position: absolute;
+    bottom: -1025px;
+    left: 560px;
+    height: 50px;
+
         }
-        #savinghomebutton button:hover {
-            background-color: #555;
-        }
+        button:hover{
+    background-color: #b4078f;  
+    border-color: #cc0679;  
+}
+button:active{
+    background-color: white;
+    color: black;
+}
     </style>
 </head>
 <body>
