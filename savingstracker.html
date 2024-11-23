@@ -30,40 +30,113 @@
     <input type="number" id="monthlyIncome" placeholder="Enter your monthly income" required>
     </div>
   </div>
-  <div id="calculate">
+  <div id="calculatesav">
       <div class="card">
       <button onclick="calculateSavings()" id="calculate">
         <i class="fa-solid fa-calculator"></i>
         Calculate</button><br><br><br>
 </div>
     </div>
-<div id="result" class="card">
- 
-</div>
+<div id="result" class="card"></div>
+<canvas id="savingsChart" width="570px" height="470px" style="max-width: 650px; max-height: 550px;"></canvas>
 
-<script> 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
     function calculateSavings() {
         const goalAmount = parseFloat(document.getElementById('goalAmount').value);
         const months = parseInt(document.getElementById('months').value);
         const monthlyIncome = parseFloat(document.getElementById('monthlyIncome').value);
-         if (!goalAmount || !months || !monthlyIncome) {
-            document.getElementById('result').innerHTML = "Please fill in all fields.";
+        if (!goalAmount || !months || !monthlyIncome || months <= 0 || monthlyIncome <= 0) {
+            document.getElementById('result').innerHTML = "Please enter valid numbers in all fields.";
             return;
         }
 
         const monthlySavings = goalAmount / months;
         const maxAffordableSavings = 0.4 * monthlyIncome;
 
+        let resultMessage;
         if (monthlySavings > maxAffordableSavings) {
-            document.getElementById('result').innerHTML = 
-                "The goal is hard to achieve. Try reducing the goal amount or increasing the time duration.";
+            resultMessage = "The goal is hard to achieve. Try reducing the goal amount or increasing the time duration.";
         } else {
-            document.getElementById('result').innerHTML = 
-                `You need to save ₹${monthlySavings.toFixed(2)} per month to reach your goal`;
+            resultMessage = `You need to save ₹${monthlySavings.toFixed(2)} per month to reach your goal.`;
+        }
+        document.getElementById('result').innerHTML = resultMessage;
+        const savingsData = [];
+        let cumulativeSavings = 0;
+
+        for (let i = 1; i <= months; i++) {
+            cumulativeSavings += monthlySavings;
+            savingsData.push(cumulativeSavings);
+        }
+        const ctx = document.getElementById('savingsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({ length: months }, (_, i) => `Month ${i + 1}`),
+                datasets: [{
+                    label: 'Cumulative Savings (₹)',
+                    data: savingsData,
+                    borderColor: 'rgba(255, 255, 255, 1)',
+                    backgroundColor: 'rgba(255,105, 180, 0.6)',
+                    borderWidth: 2,
+                    fill: true,
+                }]
+            },
+           
+            options: {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Savings Over Time',
+                color: 'rgba(255, 255, 255, 1)', 
+                font: {
+                    size: 20,
+                    weight: 'bold',
+                }
+            },
+            legend: {
+                labels: {
+                    color: 'rgba(255, 255, 255, 1)', 
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    color: 'rgba(255, 255, 255, 1)', 
+                },
+                title: {
+                    display: true,
+                    text: 'Cumulative Savings (₹)',
+                    color: 'rgba(255, 255, 255, 1)', 
+                    font: {
+                        size: 14,
+                    }
+                }
+            },
+            x: {
+                ticks: {
+                    color: 'rgba(255, 255, 255, 1)', 
+                },
+                title: {
+                    display: true,
+                    text: 'Month',
+                    color: 'rgba(255, 255, 255, 1)', 
+                    font: {
+                        size: 14,
+                    }
+                }
+            }
+          
         }
     }
+});
+    }
 </script>
-    <script type="text/javascript">
+
+<script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 (function(){
 var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
@@ -76,3 +149,4 @@ s0.parentNode.insertBefore(s1,s0);
 </script>
 </body>
 </html>
+
