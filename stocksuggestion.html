@@ -3,27 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <title>Budget Tracking</title>
+    <style>
+       body{
+   
+    
+   background:linear-gradient(135deg, #3b0a45,#7b4397,#d3a0e8);  
+   background-size: cover;
+   background-position: center;
+   font-family: 'Roboto', sans-serif;
+   }
+div{
+   display: flex;
+   flex-direction:row;
+   justify-content: space-evenly;
+   height: 100px;
+   margin-top: 100px;
+}
+#about{
+   display: flex;
+   flex-direction: column;
+   justify-content: left;
+   padding: 20px;
+   border-radius:10px ;
+   box-shadow: 0 4px 6px rgb(0,0,0,0.1);
+   background-color: rgb(223, 74, 236);
+   color: black;
+
+}
+.card p{
+   font-size:x-large;
+   color:black;
+}
+.first{
+   color:white;
+   text-align: center;
+       background: linear-gradient(to right, #52024e, #4e014e);
+       padding: 20px;
+       color: white;
+       border-radius: 10px;
+       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);    
+}
+.second{
+   color:white;
+   text-align: center;
+}
+.card button{
+   background-color:#db09db; 
+   color:rgb(8, 5, 5);
+   padding: 12px 20px;
+   border-radius: 8px;
+   font-size:16px;
+   text-decoration:none;
+   cursor: pointer;
+   transition: all 0.3s;
+   height: 50px;
+}
+button:hover{
+   background-color: #b4078f;  
+   border-color: #cc0679;  
+}
+button:active{
+   background-color: white;
+   color: black;
+}
+#homebutton{
+   position:absolute;
+   bottom: -500px;
+   left: 600px;
+   height:50PX;
+}
+.container{
+display: flex;
+flex-direction: row;
+height: 250px;
+justify-content: space-evenly;
+color:white;
+}
+.result
+{  color: white;
+   text-align: center;
+   margin-top: 60px;
+   margin-left: 240px;
+   padding: 20px;
+   border-radius: 10px;
+   box-shadow:0 4px 8px rgba(0, 0, 0, 0.1);
+   width: 800px;
+   font-size: x-large;
+}
+#risk{
+   color:white;
+   font-size: x-large;
+}
+#option
+{
+   display: flex;
+   flex-direction:column;
+   justify-content:  space-between;
+   color:white;
+   font-size: x-large;
+}
+#color{
+   color:black;
+}
+.hidden{
+   display: none;
+}
+.risk label{
+   color: white;
+   padding: 0px;
+}
+input[type=number]{
+   height:40px
+}
+.card{
+
+   border:1px solid #ccc;
+   border-radius: 10px;
+   padding: 20px;
+   margin: 20px;
+   text-align: center;
+   background-color: #f9f9f9;
+
+}
+#qstn{
+   color:white;
+   font-size: 25px;
+}
+#about{
+   font-size: larger;
+   
+}
+    </style>
 </head>
 <body>
     <h1 class="first">Stock Suggestions</h1><hr>
     <div id="homebutton" class="card">
         <button onclick="location.href='index.html'">
-            <i class="fa-solid fa-house"></i> 
-            Back to Home</button> 
+            <i class="fa-solid fa-house"></i>
+            Back to Home</button>
     </div>
     <div class="stocks">
         <div class="card">
         <button onclick="shownextoptions('stockstobuy')">
-            <i class="fa-solid fa-chart-line"></i> 
+            <i class="fa-solid fa-chart-line"></i>
             Stocks to buy </button>
         </div>
         <div class="card">
         <button onclick="shownextoptions('mutualfunds')">
-            <i class="fa-solid fa-handshake"></i> 
+            <i class="fa-solid fa-handshake"></i>
             Mutual Funds</button>
         </div>
     </div>
@@ -31,12 +161,12 @@
         <h3 style="color:white">Choose Further</h3>
         <div class="card">
         <button onclick="showlist('stockstobuy','High')">
-            <i class="fa-solid fa-exclamation-triangle"></i> 
+            <i class="fa-solid fa-exclamation-triangle"></i>
             High Risk</button>
         </div>
         <div class="card">
         <button onclick="showlist('stockstobuy','Moderate')">
-            <i class="fa-solid fa-balance-scale"></i> 
+            <i class="fa-solid fa-balance-scale"></i>
             Moderate Risk</button>
         </div>
             <div class="card">
@@ -54,7 +184,7 @@
         </div>
             <div class="card">
         <button onclick="showlist('mutualfunds','Moderate')">
-            <i class="fa-solid fa-balance-scale"></i> 
+            <i class="fa-solid fa-balance-scale"></i>
             Moderate Risk</button>
             </div>
             <div class="card">
@@ -90,10 +220,10 @@
                 else if(suboption==='Low'){
                   nameslist=  ['Hindustan Unilever: 5-year CAGR ~ 10%','Asian Paints: 5-year CAGR ~ 12%','Nestle India: 5-year CAGR ~ 11%','ITC: 5-year CAGR ~ 9%','Tata Consumer Products: 5-year CAGR ~ 10%','Pidilite Industries: 5-year CAGR ~ 13%','Bajaj Auto: 5-year CAGR ~ 8%','Colgate-Palmolive: 5-year CAGR ~ 7%','Marico: 5-year CAGR ~ 9%','Dabur India: 5-year CAGR ~ 8%'];
                 }
-                
+               
             }
             else if(option==='mutualfunds'){
-                if(suboption=='High'){
+                if(suboption==='High'){
                     nameslist=['Quant Small Cap Fund: Known for high returns, with a 5-year CAGR around 42%','Nippon India Small Cap Fund: Offers around 37.6% 5-year CAGR, a top choice in the small-cap category'];
                 }
                 else if(suboption==='Moderate'){
@@ -102,30 +232,28 @@
                 else if(suboption==='Low'){
                     nameslist=['ICICI Prudential Liquid Fund: Features a low risk level with returns primarily from government securities and bonds, yielding a steady 5-7% CAGR','SBI Savings Fund: Focuses on debt instruments, yielding around 6% over five years, ideal for low-risk investments'];
                 }
-            
-            }        
+           
+            }       
            displaynames(nameslist);
 
-           
+          
          }
 
          function displaynames(nameslist) {
-            const resultDiv = document.getElementById('result');
-            
-            if (nameslist.length > 0) {
-                resultDiv.innerHTML = ''; 
-                const ul = document.createElement('ul');
-                nameslist.forEach(function (item) {
-                    const li = document.createElement('li');
-                    li.textContent = item;
-                    ul.appendChild(li);
-                });
-                resultDiv.appendChild(ul);
-            } else {
-                resultDiv.innerHTML = 'No suggestions available.';
-            }
-        }
-
+    const resultDiv = document.getElementById('result');
+    if (nameslist.length > 0) {
+        resultDiv.innerHTML = '';
+        const ul = document.createElement('ul');
+        nameslist.forEach(function (item) {
+            const li = document.createElement('li');
+            li.textContent = item;
+            ul.appendChild(li);
+        });
+        resultDiv.appendChild(ul);
+    } else {
+        resultDiv.innerHTML = 'No suggestions available.';
+    }
+}
 
     </script>
 <script type="text/javascript">
