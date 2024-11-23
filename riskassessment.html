@@ -19,74 +19,67 @@
     
         
             <div class="risk">
-        <p id="qstn">Are you the sole earner in the family?</p>
-        <input type="radio"  name="soleEarner" value="yes" required>
-        <label for="soleEarner"><u>Yes</u></label>
-        <input type="radio"  name="soleEarner" value="no">
-        <label for="soleEarner"><u>No</u></label> 
+        <p class="qstn">Are you the sole earner in the family?</p>
+       <label> <input type="radio"  name="soleEarner" value="yes">Yes</label><br>
+       <label> <input type="radio"  name="soleEarner" value="no">No</label>
+        
+        
     </div>
 
     <div  class="risk">
-       <p id="qstn">Are you a student?</p>
-        <input type="radio"  name="student" value="yes" required>
-        <label for="student"><u>Yes</u></label>
-        <input type="radio" name="student" value="no">
-        <label for="student"><u>No</u></label>
+        <p class="qstn">Are you a student?</p>
+       <label> <input type="radio"  name="student" value="yes">Yes</label><br>
+        <label><input type="radio"  name="student" value="no">No</label>
+     </div>
+
+
     </div>
-    <div class="risk" id="studentLoansQuestion" style="display:none;">
-            <p id="qstn">Do you have any student loan?</p>
-            <input type="radio" name="studentLoan" value="yes">
-            <label><u>Yes</u></label>
-            <input type="radio" name="studentLoan" value="no">
-            <label><u>No</u></label>
+    <div class="risk" id="studentLoansQuestion">
+            <p class="qstn">Do you have any student loan?</p>
+            
+            <label><input type="radio" name="studentLoan" value="yes">Yes</label><br>
+            <label><input type="radio" name="studentLoan" value="no">No</label>
+    
     </div>
     <div class="risk">
-        <p id="qstn">Enter your age(18-70)</p>
+        <p class="qstn">Enter your age(18-70)</p>
         <input type="number" name="age" min="18" max="70" required>
     </div>
     <div class="risk">
-        <p id="qstn">Do you have any big loans(home or vehicle loans)?</p>
-        <input type="radio"  name="bigLoans" value="yes" required>
-        <label for="bigLoans"><u>Yes</u></label>
-        <input type="radio"  name="bigLoans" value="no">
-        <label for="bigLoans"><u>No</u></label>
+        <p class="qstn">Do you have any big loans(home or vehicle loans)?</p>
+        <label><input type="radio"  name="bigLoans" value="yes">Yes</label>
+        <label><input type="radio"  name="bigLoans" value="no">No</label>
     </div>
     <div class="risk">
-        <p id="qstn">Do you save/invest 20% of your salary?</p>
-        <input type="radio" name="lowSavings" value="yes" required>
-        <label for="lowSavings"><u>Yes</u></label>
-        <input type="radio"  name="lowSavings" value="no">
-        <label for="lowSavings"><u>No</u></label>
-    </div>
-    <div class="risk">
-        <p id="qstn">Do you have stable income(less than 10% variation)?</p>
-        <input type="radio" name="stableIncome" value="yes" required>
-        <label for="stableIncome"><u>Yes</u></label>
-        <input type="radio"  name="stableIncome" value="no">
-        <label for="stableIncome"><u>No</u></label>
+        <p class="qstn">Do you save/invest 20% of your salary?</p>
+        <label><input type="radio" name="lowSavings" value="yes">Yes</label>
+        <label><input type="radio" name="lowSavings" value="no">No</label>
     </div>
 
     <div class="risk">
-        <p id="qstn">On a scale of 1-10 how likely are you to panic over losses?</p>
+        <p class="qstn">Do you have stable income(less than 10% variation)?</p>
+        <label><input type="radio" name="stableIncome" value="yes">Yes</label>
+        <label><input type="radio" name="stableIncome" value="no">No</label>
+    </div>
+
+    <div class="risk">
+        <p class="qstn">On a scale of 1-10 how likely are you to panic over losses?</p>
         <input type="number"  name="panicLevel" min="1" max="10" required>
     </div>
 
     <div class="risk">
-         <p id="qstn">Do you have 3 or more months salary saved up?</p>
-        <input type="radio"  name="savings" value="yes" required>
-        <label ><u>Yes</u></label>
-        <input type="radio"  name="savings" value="no">
-        <label ><u>No</u></label>
+         <p class="qstn">Do you have 3 or more months salary saved up?</p>
+        <label><input type="radio"  name="savings" value="yes">Yes</label>
+        <label><input type="radio"  name="savings" value="no">No</label>
     </div>
     <div class="risk">
-        <p id="qstn">Do you have more than one stream of income?</p>
-        <input type="radio" name="multipleIncome" value="yes" required>
-        <label><u>Yes</u></label>
-        <input type="radio"  name="multipleIncome" value="no">
-        <label><u>No</u></label>
+        <p class="qstn">Do you have more than one stream of income?</p>
+        <label><input type="radio" name="multipleIncome" value="yes">Yes</label>
+        <label><input type="radio" name="multipleIncome" value="no">No</label>
+       
     </div>
     <div class="risk">
-        <p id="qstn">How many people are fully/partially dependent on you financially?</p>
+        <p class="qstn">How many people are fully/partially dependent on you financially?</p>
         <input type="number" name="dependents" min="0" required>
 </div>
     <div id="calculate2">
@@ -97,19 +90,13 @@
   </div>
 </div>
     </form>
-    <div class="card">
-    <div id="scoreOutput" style="color: white; font-size: x-large;"></div>
+    <div class="cardop">
+    <div id="scoreOutput"></div><br>
     </div>
-    <div class="card">
-    <div id="suggestionOutput"  style="color: white; font-size: x-large;"></div>
+    <div class="cardop">
+    <div id="suggestionOutput"></div><br>
     </div>
     <script>
-        document.querySelectorAll('input[name="student"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                document.getElementById('studentLoansQuestion').style.display = this.value === "yes" ? "block" : "none";
-            });
-        });
-
         function calculateRisk() {
             let total = 100;
             const form = document.forms["riskform"];
@@ -156,16 +143,16 @@
             document.getElementById("suggestionOutput").textContent = `Suggestion: ${suggestion}`;
         }
     </script>
-    <script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/67377aed2480f5b4f59eaf45/1icobgd8r';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/67377aed2480f5b4f59eaf45/1icobgd8r';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
 </body>
 </html>
