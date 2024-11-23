@@ -35,14 +35,14 @@
         <br>
         </div>
         <div id="calculate">
-            <div class="card">
+            <div class="card" id="cal3">
             <button type="button" onclick="calculateAllocation()">
                 <i class="fa-solid fa-calculator"></i>
                 Calculate Allocation</button>
             </div>
         </div>
     </form>
-    <div class="card">
+    <div class="card" id="investbreak">
     <h2 id="color">Investment Breakdown</h2>
     <p id="fixeddeposit"></p>
     <p id="mutualfunds"></p>
@@ -50,7 +50,8 @@
     <p id="stocks"></p>
     <p id="crypto"></p>
     </div>
-    
+    <canvas id="investmentChart" width="400" height="200" style="max-width: 300px; max-height: 300px;"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
         function calculateAllocation() {
@@ -58,6 +59,7 @@
             let saveamt = parseFloat(document.getElementById("amt").value);
             const soleearner = document.getElementById("soleearner");
             const others = document.getElementById("others");
+            
 
             if(income<=20000){
                 if(soleearner.checked){
@@ -67,6 +69,51 @@
                     document.getElementById("fixeddeposit").innerHTML = "50% IN FD : " + `₹${fd.toFixed(2)}`;
                     document.getElementById("mutualfunds").innerHTML = "40% IN MUTUAL FUNDS : " + `₹${mf.toFixed(2)}`;
                     document.getElementById("gold").innerHTML = "10% IN GOLD : " + `₹${gold.toFixed(2)}`;
+                    const data = {
+    labels: ['FD','Mutual Funds','Gold'],
+    datasets: [{
+        label: 'Investment Breakdown',
+        data: [50,40,10], 
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.7)',  
+            'rgba(54, 162, 235, 0.7)',  
+            'rgba(255, 206, 86, 0.7)',  
+           
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+        ],
+        borderWidth: 1
+    }]
+};
+
+
+const config = {
+    type: 'pie',
+    data: data,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                color:'#ffffff',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        const value = tooltipItem.raw;
+                        return `${tooltipItem.label}: ${value}%`;
+                    }
+                }
+            }
+        }
+    }
+};
+const ctx = document.getElementById('investmentChart').getContext('2d');
+new Chart(ctx, config);
+
                 } else if(others.checked){
                     const fd=saveamt*0.3;
                     const mf=saveamt*0.4;
@@ -75,7 +122,54 @@
                     document.getElementById("fixeddeposit").innerHTML = "30% IN FD : " + `₹${fd.toFixed(2)}`;
                     document.getElementById("mutualfunds").innerHTML = "40% IN MUTUAL FUNDS : " + `₹${mf.toFixed(2)}`;
                     document.getElementById("gold").innerHTML = "20% IN GOLD : " + `₹${gold.toFixed(2)}`;
-                    document.getElementById("stocks").innerHTML = "10% IN STOCKS : " + `₹${stks.toFixed(2)}`;      
+                    document.getElementById("stocks").innerHTML = "10% IN STOCKS : " + `₹${stks.toFixed(2)}`;
+                    const data = {
+    labels: ['FD','Mutual Funds','Gold','stocks'],
+    datasets: [{
+        label: 'Investment Breakdown',
+        data: [30,40,20,10], 
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.7)',  
+            'rgba(54, 162, 235, 0.7)',  
+            'rgba(255, 206, 86, 0.7)',  
+            'rgba(75, 192, 192, 0.7)'    
+           
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)'
+        ],
+        borderWidth: 1
+    }]
+};
+
+
+const config = {
+    type: 'pie',
+    data: data,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                color:'#ffffff',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        const value = tooltipItem.raw;
+                        return `${tooltipItem.label}: ${value}%`;
+                    }
+                }
+            }
+        }
+    }
+};
+const ctx = document.getElementById('investmentChart').getContext('2d');
+new Chart(ctx, config);
+      
                 }
             } else if(income>20000 && income<=50000){
                 if(soleearner.checked){
@@ -87,7 +181,61 @@
                     document.getElementById("mutualfunds").innerHTML = "50% IN MUTUAL FUNDS : " + `₹${mf.toFixed(2)}`;
                     document.getElementById("gold").innerHTML = "20% IN GOLD : " + `₹${gold.toFixed(2)}`;
                     document.getElementById("stocks").innerHTML = "10% IN STOCKS : " + `₹${stks.toFixed(2)}`;  
-                } else if(others.checked){
+                    const data = {
+    labels: ['FD','Mutual Funds','Gold','stocks'],
+    datasets: [{
+        label: 'Investment Breakdown',
+        data: [20,50,20,10], 
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.7)',  
+            'rgba(54, 162, 235, 0.7)',  
+            'rgba(255, 206, 86, 0.7)',  
+            'rgba(75, 192, 192, 0.7)'    
+           
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)'
+        ],
+        borderWidth: 1
+    }]
+};
+const config = {
+    type: 'pie',
+    data: data,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                color:'#ffffff',
+                weight:'bold',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        const value = tooltipItem.raw;
+                        return `${tooltipItem.label}: ${value}%`;
+                    }
+                }
+            },
+            datalabels: {
+                color: 'white',
+                font: {
+                    weight: 'bold', 
+                    size: 16 
+                }
+            }
+        }
+    }
+};
+
+const ctx = document.getElementById('investmentChart').getContext('2d');
+new Chart(ctx, config);
+      
+                }else if(others.checked){
                     const fd=saveamt*0.15;
                     const mf=saveamt*0.4;
                     const gold=saveamt*0.25;
@@ -95,7 +243,54 @@
                     document.getElementById("fixeddeposit").innerHTML = "15% IN FD : " + `₹${fd.toFixed(2)}`;
                     document.getElementById("mutualfunds").innerHTML = "40% IN MUTUAL FUNDS : " + `₹${mf.toFixed(2)}`;
                     document.getElementById("gold").innerHTML = "25% IN GOLD : " + `₹${gold.toFixed(2)}`;
-                    document.getElementById("stocks").innerHTML = "20% IN STOCKS : " + `₹${stks.toFixed(2)}`;      
+                    document.getElementById("stocks").innerHTML = "20% IN STOCKS : " + `₹${stks.toFixed(2)}`;
+                    const data = {
+    labels: ['FD','Mutual Funds','Gold','stocks'],
+    datasets: [{
+        label: 'Investment Breakdown',
+        data: [15,40,25,20], 
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.7)',  
+            'rgba(54, 162, 235, 0.7)',  
+            'rgba(255, 206, 86, 0.7)',  
+            'rgba(75, 192, 192, 0.7)'    
+           
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)'
+        ],
+        borderWidth: 1
+    }]
+};
+
+
+const config = {
+    type: 'pie',
+    data: data,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                color:'#ffffff',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        const value = tooltipItem.raw;
+                        return `${tooltipItem.label}: ${value}%`;
+                    }
+                }
+            }
+        }
+    }
+};
+const ctx = document.getElementById('investmentChart').getContext('2d');
+new Chart(ctx, config);
+      
                 }
             } else if(income>50000 && income<=100000){
                 if(soleearner.checked){
@@ -108,7 +303,57 @@
                     document.getElementById("mutualfunds").innerHTML = "35% IN MUTUAL FUNDS : " + `₹${mf.toFixed(2)}`;
                     document.getElementById("gold").innerHTML = "15% IN GOLD : " + `₹${gold.toFixed(2)}`;
                     document.getElementById("stocks").innerHTML = "30% IN STOCKS : " + `₹${stks.toFixed(2)}`;
-                    document.getElementById("crypto").innerHTML = "5% IN CRYPTO : " + `₹${crypto.toFixed(2)}`;  
+                    document.getElementById("crypto").innerHTML = "5% IN CRYPTO : " + `₹${crypto.toFixed(2)}`;
+                    const data = {
+    labels: ['FD','Mutual Funds','Gold','stocks'],
+    datasets: [{
+        label: 'Investment Breakdown',
+        data: [15,35,15,30,5], 
+        backgroundColor: [
+        'rgba(255, 99, 132, 0.7)', 
+        'rgba(54, 162, 235, 0.7)',  
+        'rgba(255, 206, 86, 0.7)',
+        'rgba(255, 206, 86, 0.7)',  
+        'rgba(75, 192, 192, 0.7)'  
+            
+           
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)'
+        ],
+        borderWidth: 1
+    }]
+};
+
+
+const config = {
+    type: 'pie',
+    data: data,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                color:'#ffffff',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        const value = tooltipItem.raw;
+                        return `${tooltipItem.label}: ${value}%`;
+                    }
+                }
+            }
+        }
+    }
+};
+const ctx = document.getElementById('investmentChart').getContext('2d');
+new Chart(ctx, config);
+      
                 } else if(others.checked){
                     const fd=saveamt*0.1;
                     const mf=saveamt*0.3;
@@ -119,7 +364,56 @@
                     document.getElementById("mutualfunds").innerHTML = "30% IN MUTUAL FUNDS : " + `₹${mf.toFixed(2)}`;
                     document.getElementById("gold").innerHTML = "10% IN GOLD : " + `₹${gold.toFixed(2)}`;
                     document.getElementById("stocks").innerHTML = "40% IN STOCKS : " + `₹${stks.toFixed(2)}`;
-                    document.getElementById("crypto").innerHTML = "10% IN CRYPTO : " + `₹${crypto.toFixed(2)}`;    
+                    document.getElementById("crypto").innerHTML = "10% IN CRYPTO : " + `₹${crypto.toFixed(2)}`;
+                    const data = {
+    labels: ['FD','Mutual Funds','Gold','Crypto'],
+    datasets: [{
+        label: 'Investment Breakdown',
+        data: [10,30,10,40,10], 
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.7)', 
+            'rgba(54, 162, 235, 0.7)',  
+            'rgba(255, 206, 86, 0.7)',
+            'rgba(255, 206, 86, 0.7)',  
+            'rgba(75, 192, 192, 0.7)'  
+           
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)'
+        ],
+        borderWidth: 1
+    }]
+};
+
+
+const config = {
+    type: 'pie',
+    data: data,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                color:'#ffffff',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        const value = tooltipItem.raw;
+                        return `${tooltipItem.label}: ${value}%`;
+                    }
+                }
+            }
+        }
+    }
+};
+const ctx = document.getElementById('investmentChart').getContext('2d');
+new Chart(ctx, config);
+    
                 }
             } else if (income > 100000) {
         if (soleearner.checked) {
@@ -130,9 +424,65 @@
             const crypto = saveamt * 0.07;
             document.getElementById("fixeddeposit").innerHTML = "10% IN FD : "+ `₹${fd.toFixed(2)}`;
             document.getElementById("mutualfunds").innerHTML = "35% IN MUTUAL FUNDS : "+ `₹${mf.toFixed(2)}`;
-            document.getElementById("gold").innerHTML = "10% IN GOLD : "+`₹${gold.toFixed(2)}`;
+            document.getElementById("gold").innerHTML = "10% IN GOLD : "+ `₹${gold.toFixed(2)}`;
             document.getElementById("stocks").innerHTML = "38% IN STOCKS : "+ `₹${stks.toFixed(2)}`;
             document.getElementById("crypto").innerHTML = "7% IN CRYPTO : "+ `₹${crypto.toFixed(2)}`;
+            const data = {
+    labels: ['FD','Mutual Funds','Gold'],
+    datasets: [{
+        label: 'Investment Breakdown',
+        data: [50,40,10], 
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.7)',  
+            'rgba(54, 162, 235, 0.7)',  
+            'rgba(255, 206, 86, 0.7)',  
+           
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+        ],
+        borderWidth: 1
+    }]
+};
+
+
+const config = {
+    type: 'pie',
+    data: data,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                color:'#ffffff',
+                labels: {
+                    color: 'white'  
+                }
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        const value = tooltipItem.raw;
+                        return `${tooltipItem.label}: ${value}%`;  
+                    }
+                },
+                bodyColor: 'white', 
+                titleColor: 'white' 
+            }
+        },
+        elements: {
+            arc: {
+                borderColor: 'white'
+            }
+        }
+    }
+};
+
+const ctx = document.getElementById('investmentChart').getContext('2d');
+new Chart(ctx, config);
+
         } else if (others.checked) {
             const fd = saveamt* 0.05;
             const mf = saveamt * 0.25;
@@ -144,6 +494,51 @@
             document.getElementById("gold").innerHTML = "10% IN GOLD : " + `₹${gold.toFixed(2)}`;
             document.getElementById("stocks").innerHTML = "50% IN STOCKS : " + `₹${stks.toFixed(2)}`;
             document.getElementById("crypto").innerHTML = "10% IN CRYPTO : "+ `₹${crypto.toFixed(2)}`;
+            const data = {
+    labels: ['FD','Mutual Funds','Gold'],
+    datasets: [{
+        label: 'Investment Breakdown',
+        data: [50,40,10], 
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.7)',  
+            'rgba(54, 162, 235, 0.7)',  
+            'rgba(255, 206, 86, 0.7)',  
+           
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+        ],
+        borderWidth: 1
+    }]
+};
+
+
+const config = {
+    type: 'pie',
+    data: data,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                color:'#ffffff',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        const value = tooltipItem.raw;
+                        return `${tooltipItem.label}: ${value}%`;
+                    }
+                }
+            }
+        }
+    }
+};
+const ctx = document.getElementById('investmentChart').getContext('2d');
+new Chart(ctx, config);
+
 
                 }
             }
