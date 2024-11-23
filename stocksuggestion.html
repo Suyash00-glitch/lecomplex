@@ -111,9 +111,9 @@
 
          function displaynames(nameslist) {
             const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = ''; 
-
+            
             if (nameslist.length > 0) {
+                resultDiv.innerHTML = ''; 
                 const ul = document.createElement('ul');
                 nameslist.forEach(function (item) {
                     const li = document.createElement('li');
