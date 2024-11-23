@@ -12,9 +12,9 @@ div{
     height: 100px;
     margin-top: 100px;
 }
-#about{
+.about{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: left;
     padding: 20px;
     border-radius:10px ;
@@ -28,16 +28,15 @@ div{
     color:black;
 }
 .first{
-    color:white;
+    color: #c7c2c2;
     text-align: center;
         background: linear-gradient(to right, #52024e, #4e014e);
         padding: 20px;
-        color: white;
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);    
 }
 .second{
-    color:white;
+    color:#c7c2c2;
     text-align: center;
 }
 .card button{
@@ -67,7 +66,7 @@ button:active{
 }
 #investhomebutton1{
     position:absolute;
-    bottom: -600px;
+    bottom: -900px;
     left: 550px;
     height: 50px;
 
@@ -81,15 +80,16 @@ button:active{
 }
 #savinghomebutton{
     position: absolute;
-    bottom: -425px;
+    bottom: -900px;
     left: 560px;
     height: 50px;
 }
 #riskhomebutton{
-position:absolute;
-bottom: -2200px;
-left: 550px;
-height: 50px;
+    position: absolute;
+    bottom: -2390px;
+    left:560px;
+    height:50px;
+
 }
 #abc{
     color: white;
@@ -137,6 +137,7 @@ justify-content: space-evenly;
 color:white;
 }
 #calculate{
+    position:relative;
     text-align: center;
     margin-left: 40px;
     margin-right: 40px;
@@ -149,8 +150,8 @@ color:white;
     position: relative;
     margin-left: 40px;
     margin-right: 50px;
-    margin-top:30px;
-    margin-bottom: 78px;
+    margin-top:90px;
+    margin-bottom: 75pxpx;
     
 }
 #result
@@ -163,13 +164,19 @@ color:white;
     box-shadow:0 4px 8px rgba(0, 0, 0, 0.1);
     width: 800px;
 }
+.result{
+    color: white;
+    font-size: 20px;
+    margin-top:-80px ;
+    margin-right: 200px;
+}
 .savingl
 {  
     height: 70px;
     font-size:28px;
     color: black;
 }
-#risk{
+.risk{
     color:white;
     font-size: x-large;
 }
@@ -210,10 +217,7 @@ color:white;
 .hidden{
     display: none;
 }
-.risk label{
-    color: white;
-    padding: 0px;
-}
+
 input[type=number]{
     height:40px
 }
@@ -227,15 +231,68 @@ input[type=number]{
     background-color: #f9f9f9;
 
 }
-#qstn{
+.qstn{
     color:white;
     font-size: 25px;
+    text-align: left;
 }
 #about{
     font-size: larger;
-    
+
+}
+#investmentChart {
+    margin-left: auto; 
+    margin-right: 485px;
+    display: block;
+}
+#cal3{
+    margin-top: -30px;
+}
+#investbreak{
+    margin-top: 100px;
+}
+#savingsChart{
+    margin-left: auto; 
+    margin-right: 400px;
+    display: block;
+}
+.radio-inline {
+    display: flex;
+    align-items: center;
+}
+.question {     /*this is for fin health*/
+    margin: 20px 0;
+}
+.question p {
+    font-weight: bold;
+}
+.question label {
+    margin-right: 20px;
+}
+.question input[type="radio"] {
+    margin-right: 5px;
+}
+#result {
+    margin-top: 20px;
+    font-size: 20px;
+}
+.cardop{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border:1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+    color: #4e014e;
+    font-size: x-large;
 }
 
+
+
+    
 
 
 
