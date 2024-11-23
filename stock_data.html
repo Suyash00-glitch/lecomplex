@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Stock Data</title>
+    <style>
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Top 10 Stock Data</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>CMP</th>
+                <th>Day Change (%)</th>
+                <th>Market Cap</th>
+                <th>Volume</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock in stock_data %}
+            <tr>
+                <td>{{ stock.Symbol }}</td>
+                <td>{{ stock.CMP }}</td>
+                <td>{{ stock['Day Change (%)'] }}</td>
+                <td>{{ stock['Market Cap'] }}</td>
+                <td>{{ stock.Volume }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
