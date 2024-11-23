@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <title>Financial Health Assessment</title>
+    <style>
+        body {
+            
+             
+           background:linear-gradient(135deg, #3b0a45,#7b4397,#d3a0e8);
+           background-size: cover;
+           background-position: center;
+           font-family: 'Roboto', sans-serif;
+           line-height: 1.5;
+           margin: 20px;
+        }
+        .question {
+            margin-bottom: 20px;
+            color: white;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .classification {
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+        .first{
+           color: #c7c2c2;
+           text-align: center;
+           background: linear-gradient(to right, #52024e, #4e014e);
+           padding: 20px;
+           border-radius: 10px;
+           box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);    
+        }
+        #riskhomebutton{
+          position: absolute;
+          bottom: -800px;
+          left:560px;
+          height:50px;
+
+        }
+        .card button{
+    background-color:#db09db; 
+    color:rgb(8, 5, 5);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size:16px;
+    text-decoration:none;
+    cursor: pointer;
+    transition: all 0.3s;
+    height: 50px;
+}
+button:hover{
+    background-color: #b4078f;  
+    border-color: #cc0679;  
+}
+button:active{
+    background-color: white;
+    color: black;
+}
+.card{
+
+border:1px solid #ccc;
+border-radius: 10px;
+padding: 20px;
+margin: 20px;
+text-align: center;
+background-color: #f9f9f9;
+}
+    </style>
+</head>
+<body>
+    <h1 class="first">Financia Health Calculator</h1><hr>
+    <div id="riskhomebutton" class="card">
+        <button onclick="location.href='index.html'">
+            <i class="fa-solid fa-house"></i>  
+            Back to Home</button> 
+    </div>
+    <form id="financeForm">
+        <div id="questions"></div>
+        <div class="result" id="totalScore">Total Score: 0</div>
+        <div class="classification" id="classification">Classification: Financially Unstable</div>
+    </form>
+
+    <script>
+        const questions = [
+            {
+                text: "Do you have a steady source of income?",
+                options: [
+                    { text: "No income", value: 0 },
+                    { text: "Irregular income", value: 1 },
+                    { text: "Steady part-time income", value: 2 },
+                    { text: "Steady full-time income", value: 4 }
+                ]
+            },
+            {
+                text: "Do you save a portion of your income regularly?",
+                options: [
+                    { text: "Never", value: 0 },
+                    { text: "Occasionally", value: 1 },
+                    { text: "Frequently", value: 2 },
+                    { text: "Always", value: 4 }
+                ]
+            },
+            {
+                text: "How many months of living expenses can your savings cover?",
+                options: [
+                    { text: "Less than 1 month", value: 0 },
+                    { text: "1-3 months", value: 1 },
+                    { text: "3-6 months", value: 2 },
+                    { text: "More than 6 months", value: 4 }
+                ]
+            },
+            {
+                text: "Do you have an emergency fund separate from your savings?",
+                options: [
+                    { text: "No", value: 0 },
+                    { text: "Small amount", value: 1 },
+                    { text: "Moderate amount", value: 2 },
+                    { text: "Fully funded emergency fund", value: 4 }
+                ]
+            },
+            {
+                text: " How much of your income is used for debt repayment?",
+                options: [
+                    { text: "Over 50%", value: 0 },
+                    { text: "30-50%", value: 1 },
+                    { text: "10-30%", value: 2 },
+                    { text: "Less than 10%", value: 4 }
+                ]
+            },
+            {
+                text: "  Are you aware of the interest rates on your debts?",
+                options: [
+                    { text: "NO", value: 0 },
+                    { text: "Somewhat", value: 1 },
+                    { text: "Aware of most", value: 2 },
+                    { text: "Fully aware", value: 4 }
+                ]
+            },
+            {
+                text: "Do you have any unpaid loans or credit card debt?",
+                options: [
+                    { text: "Yes, with overdue payments", value: 0 },
+                    { text: "Yes, but manageable", value: 1 },
+                    { text: "Yes, with a repayment plan", value: 2 },
+                    { text: "No debt", value: 4 }
+                ]
+            },
+            {
+                text: "Do you make more than the minimum payment on your debts?",
+                options: [
+                    { text: "No", value: 0 },
+                    { text: "Sometimes", value: 1 },
+                    { text: "Frequently", value: 2 },
+                    { text: "Always", value: 4 }
+                ]
+            },
+            {
+                text: "Do you follow a monthly budget?",
+                options: [
+                    { text: "No budget", value: 0 },
+                    { text: "Have a budget but dont follow it", value: 1 },
+                    { text: "Follow it occasionally", value: 2 },
+                    { text: "Follow it strictly", value: 4 }
+                ]
+            },
+            {
+                text: "Are your expenses within your income?",
+                options: [
+                    { text: "Frequently exceed income", value: 0 },
+                    { text: "Occasionally exceed income", value: 1 },
+                    { text: "Almost always within income", value: 2 },
+                    { text: "Always within income", value: 4 }
+                ]
+            },
+            {
+                text: " Do you track your expenses regularly?",
+                options: [
+                    { text: "Never", value: 0 },
+                    { text: "Occasionally", value: 1 },
+                    { text: "Frequently", value: 2 },
+                    { text: "Always", value: 4 }
+                ]
+            },
+            {
+                text: "Are your expenses within your income?",
+                options: [
+                    { text: "Frequently exceed income", value: 0 },
+                    { text: "Occasionally exceed income", value: 1 },
+                    { text: "Almost always within income", value: 2 },
+                    { text: "Always within income", value: 4 }
+                ]
+            },
+            {
+                text: "Do you have financial goals for the future?",
+                options: [
+                    { text: "No goals", value: 0 },
+                    { text: "Vague goals", value: 1 },
+                    { text: "Specific but not actionable", value: 2 },
+                    { text: " Specific and actionable goals", value: 4 }
+                ]
+            },
+            {
+                text: "Do you have health insurance?",
+                options: [
+                    { text: "No", value: 0 },
+                    { text: "Inadequate coverage", value: 1 },
+                    { text: "Adequate coverage", value: 2 },
+                    { text: "Comprehensive coverage", value: 4 }
+                ]
+            },
+            {
+                text: "Do you have life insurance?",
+                options: [
+                    { text: "No", value: 0 },
+                    { text: "Inadequate coverage", value: 1 },
+                    { text: "Adequate coverage", value: 2 },
+                    { text: "Comprehensive coverage", value: 4 }
+                ]
+            },
+            {
+                text: "Do you have investments for long-term financial goals?",
+                options: [
+                    { text: "No investments", value: 0 },
+                    { text: "Minimal investments", value: 1 },
+                    { text: "Moderate investments", value: 2 },
+                    { text: "Diverse and significant investments", value: 4 }
+                ]
+            },
+            {
+                text: "Are you contributing to a retirement plan?",
+                options: [
+                    { text: "Not contributing", value: 0 },
+                    { text: " Irregular contributions", value: 1 },
+                    { text: "Regular but small contributions", value: 2 },
+                    { text: "Regular and significant contributions", value: 4 }
+                ]
+            },
+            {
+                text: "Are you aware of your credit score?",
+                options: [
+                    { text: "Dont know it", value: 0 },
+                    { text: "Heard about it but don’t know mine", value: 1 },
+                    { text: "Know it vaguely", value: 2 },
+                    { text: "Fully aware", value: 4 }
+                ]
+            },
+            {
+                text: "Do you understand basic financial concepts like interest, inflation, and compounding?",
+                options: [
+                    { text: "Not at all", value: 0 },
+                    { text: "Vaguely", value: 1 },
+                    { text: "Somewhat", value: 2 },
+                    { text: "Always", value: 4 }
+                ]
+            },
+            {
+                text: "Do you review your financial accounts and statements regularly?",
+                options: [
+                    { text: "Never", value: 0 },
+                    { text: "Rarely", value: 1 },
+                    { text: "Occasionally", value: 2 },
+                    { text: "Always", value: 4 }
+                ]
+            },
+            {
+                text: "How often do you use credit for discretionary expenses?",
+                options: [
+                    { text: "Always", value: 0 },
+                    { text: "Frequently", value: 1 },
+                    { text: "Occasionally", value: 2 },
+                    { text: "Rarely or never", value: 4 }
+                ]
+            },
+            {
+                text: " Do you plan for large expenses (e.g., education, marriage, house)?",
+                options: [
+                    { text: "Never", value: 0 },
+                    { text: "Vaguely", value: 1 },
+                    { text: "Partially", value: 2 },
+                    { text: "Fully planned", value: 4 }
+                ]
+            },
+            {
+                text: "Do you consult a financial advisor or use tools for financial planning?",
+                options: [
+                    { text: "Never", value: 0 },
+                    { text: "Rarely", value: 1 },
+                    { text: "Occasionally", value: 2 },
+                    { text: "Regularly", value: 4 }
+                ]
+            },
+            {
+                text: "Do you have a will or estate plan?",
+                options: [
+                    { text: "No", value: 0 },
+                    { text: "Partially", value: 1 },
+                    { text: "Almost complete", value: 2 },
+                    { text: "Fully completed", value: 4 }
+                ]
+            },
+            {
+                text: "How often do you impulse-buy items outside your budget?",
+                options: [
+                    { text: "Frequently", value: 0 },
+                    { text: "Occasionally", value: 1 },
+                    { text: "Rarely", value: 2 },
+                    { text: "Never", value: 4 }
+                ]
+            },
+        ];
+
+        const questionsContainer = document.getElementById("questions");
+        questions.forEach((question, index) => {
+            const questionDiv = document.createElement("div");
+            questionDiv.classList.add("question");
+
+            const questionLabel = document.createElement("label");
+            questionLabel.textContent = `${index + 1}. ${question.text}`;
+            questionDiv.appendChild(questionLabel);
+
+            question.options.forEach(option => {
+                const optionLabel = document.createElement("label");
+                const optionInput = document.createElement("input");
+
+                optionInput.type = "radio";
+                optionInput.name = `question${index}`;
+                optionInput.value = option.value;
+                optionInput.addEventListener("change", calculateScore);
+
+                optionLabel.appendChild(optionInput);
+                optionLabel.appendChild(document.createTextNode(` ${option.text}`));
+                questionDiv.appendChild(optionLabel);
+            });
+
+            questionsContainer.appendChild(questionDiv);
+        });
+        function calculateScore() {
+            let totalScore = 0;
+            const formData = new FormData(document.getElementById("financeForm"));
+
+            for (let value of formData.values()) {
+                totalScore += parseInt(value);
+            }
+
+            document.getElementById("totalScore").textContent = `Total Score: ${totalScore}`;
+            document.getElementById("classification").textContent = `Classification: ${getClassification(totalScore)}`;
+        }
+        function getClassification(score) {
+            if (score <= 25) return "Financially Unstable";
+            if (score <= 50) return "Needs Improvement";
+            if (score <= 75) return "Moderately Healthy";
+            return "Financially Healthy";
+        }
+    </script>
