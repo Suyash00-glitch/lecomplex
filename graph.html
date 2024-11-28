@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market EOD Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            background:linear-gradient(135deg, #3b0a45,#7b4397,#d3a0e8);
+    background-size: cover;
+    background-position: center;
+    font-family: 'Roboto', sans-serif;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 5px #000;
+            color: #c7c2c2;
+            background: linear-gradient(to right, #52024e, #4e014e);
+
+        }
+
+        .glow {
+            color: #ffffff;
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 20px 0;
+            text-shadow: 0 0 5px #fff, 0 0 10px #ff6bdf, 0 0 20px #ff6bdf, 0 0 40px #ff6bdf;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+            width: 70%;
+            border: 1px solid #ffffff;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+            color: white;
+            transition: all 0.3s ease;
+            background-color:#db09db; 
+    color:rgb(8, 5, 5);
+    text-decoration:none;
+    cursor: pointer;
+    transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: #b4078f;  
+            border-color: #cc0679;  
+        }
+
+        canvas {
+            margin-top: 20px;
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Stock Market EOD Data</h1>
+    <div style="text-align: center;">
+        <input type="text" id="stockSymbols" placeholder="Enter stock symbols (comma-separated, e.g., AAPL,GOOGL)" />
+        <br>
+        <button onclick="fetchStockData()">Get Data</button>
+        <button id="convertToINRButton" onclick="convertToINR()" style="display: none;">Convert to INR</button>
+        <button id="convertToUSDButton" onclick="convertToUSD()" style="display: none;">Convert to USD</button>
+    </div>
+    <canvas id="stockChart"></canvas>
+
+    <script>
+        let globalChart = null;
+        let originalData = [];
+        const conversionRate = 82; // Example USD to INR rate. Replace with a live API if required.
+
+        async function fetchStockData() {
+            const stockSymbols = document.getElementById('stockSymbols').value.toUpperCase().split(',');
+            const apiKey = 'cb3684c1c6b674ecda2f8e245fe07101'; // Replace with your actual access key
+            const chartData = [];
+            const labels = new Set(); // To ensure all dates are captured
+
+            for (const symbol of stockSymbols) {
+                const url =` https://api.marketstack.com/v1/eod?access_key=${apiKey}&symbols=${symbol.trim()}`;
+
+                try {
+                    const response = await fetch(url);
+                    const data = await response.json();
+
+                    if (data && data.data && data.data.length > 0) {
+                        const dates = data.data.map(entry => entry.date.slice(0, 10));
+                        const prices = data.data.map(entry => entry.close);
+
+                        dates.forEach(date => labels.add(date));
+                        chartData.push({ symbol: symbol.trim(), dates, prices });
+                    } else {
+                        alert(`No data found for the symbol: ${symbol.trim()}`);
+                    }
+                } catch (error) {
+                    alert(`Error fetching data for ${symbol.trim()}. Please try again later.`);
+                    console.error(error);
+                }
+            }
+
+            if (chartData.length > 0) {
+                originalData = JSON.parse(JSON.stringify(chartData)); // Save original data
+                renderChart(Array.from(labels).sort(), chartData);
+                document.getElementById('convertToINRButton').style.display = 'inline';
+                document.getElementById('convertToUSDButton').style.display = 'inline';
+            }
+        }
+
+        function renderChart(labels, chartData) {
+            const ctx = document.getElementById('stockChart').getContext('2d');
+
+            const datasets = chartData.map(({ symbol, dates, prices }) => {
+                const priceMap = new Map(dates.map((date, i) => [date, prices[i]]));
+                const alignedPrices = labels.map(label => priceMap.get(label) || null); // Align prices with all dates
+
+                return {
+                    label:` ${symbol} EOD Prices`,
+                    data: alignedPrices,
+                    borderColor: getRandomColor(),
+                    borderWidth: 2,
+                    tension: 0.4, // Smooth lines
+                    fill: true,
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Add a subtle background color to the chart lines
+                };
+            });
+
+            if (globalChart) {
+                globalChart.destroy(); // Destroy the previous chart instance
+            }
+
+            globalChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white', // Legend text color
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date',
+                                color: 'white'
+                            },
+                            ticks: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Price (USD)',
+                                color: 'white'
+                            },
+                            ticks: {
+                                color: 'white'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function getRandomColor() {
+            return `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`;
+        }
+
+        function convertToINR() {
+            const chartData = originalData.map(({ symbol, dates, prices }) => ({
+                symbol,
+                dates,
+                prices: prices.map(price => price * conversionRate)
+            }));
+
+            renderChart(globalChart.data.labels, chartData);
+
+            globalChart.options.scales.y.title.text = 'Price (INR)';
+            globalChart.update();
+        }
+
+        function convertToUSD() {
+            renderChart(globalChart.data.labels, originalData);
+
+            globalChart.options.scales.y.title.text = 'Price (USD)';
+            globalChart.update();
+        }
+    </script>
+</body>
+
+</html>
