@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Data Viewer</title>
+    <style>
+        body {
+            background:linear-gradient(135deg, #3b0a45,#7b4397,#d3a0e8);
+    background-size: cover;
+    background-position: center;
+    font-family: 'Roboto', sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 5px #000;
+            color: #c7c2c2;
+            background: linear-gradient(to right, #52024e, #4e014e);
+
+        }
+
+        #dataform {
+            max-width: 400px;
+            margin: 20px auto;
+            background: linear-gradient(to right, #52024e, #4e014e);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        label {
+            font-size: 1.2rem;
+        }
+
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        select {
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        button {
+            background-color: #812286;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #7f1386;
+        }
+
+        #stockData {
+            max-width: 700px;
+            margin: 20px auto;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: #fff;
+        }
+
+        .error {
+            color: #ff5252;
+        }
+
+        hr {
+            border: none;
+            border-bottom: 1px solid #ccc;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Market Data Viewer</h1>
+    <div id="dataform">
+        <label for="datatype">Select Data Type</label>
+        <select id="datatype">
+            <option value="intraday">Intraday</option>
+            <option value="historical">Historical Data</option>
+            <option value="eod">End Of Day Data</option>
+            <option value="splits">Splits Data</option>
+            <option value="dividends">Dividends Data</option>
+            <option value="tickers">Tickers</option>
+        </select>
+
+        <label for="symbol">Select Stock Symbol</label>
+        <select id="symbol">
+            <option value="AAPL">Apple (AAPL)</option>
+            <option value="TSLA">Tesla (TSLA)</option>
+            <option value="GOOG">Google (GOOG)</option>
+            <option value="AMZN">Amazon (AMZN)</option>
+            <option value="MSFT">Microsoft (MSFT)</option>
+            <option value="FB">Meta (FB)</option>
+            <option value="NFLX">Netflix (NFLX)</option>
+            <option value="NVDA">Nvidia (NVDA)</option>
+        </select>
+
+        <button onclick="fetchMarketData()">Fetch Data</button>
+        <button id="convertToINRButton" onclick="convertToINR()" style="display: none;">Convert to INR</button>
+        <button id="convertToUSDButton" onclick="convertToUSD()" style="display: none;">Convert to USD</button>
+    </div>
+
+    <div id="stockData"></div>
+
+    <script>
+        const apikey = 'cb3684c1c6b674ecda2f8e245fe07101'; 
+        const baseurl = 'https://api.marketstack.com/v1';
+        const conversionRate = 82; 
+        let originalData = null;
+
+        async function fetchMarketData() {
+            const datatype = document.getElementById('datatype').value;
+            const symbol = document.getElementById('symbol').value;
+
+            const endpoints = {
+                intraday: '/intraday/latest',
+                historical: '/eod',
+                eod: '/eod/latest',
+                splits: '/splits',
+                dividends: '/dividends',
+                tickers: '/tickers'
+            };
+
+            const params = `?access_key=${apikey}&symbols=${symbol}`;
+
+            const apiUrl =` ${baseurl}${endpoints[datatype]}${params}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data && data.data && data.data.length > 0) {
+                    originalData = JSON.parse(JSON.stringify(data));
+                    displayData(data, datatype);
+                    if (datatype === 'historical' || datatype === 'eod') {
+                        document.getElementById('convertToINRButton').style.display = 'inline';
+                        document.getElementById('convertToUSDButton').style.display = 'inline';
+                    } else {
+                        document.getElementById('convertToINRButton').style.display = 'none';
+                        document.getElementById('convertToUSDButton').style.display = 'none';
+                    }
+                } else {
+                    displayError('No data available for the selected option.');
+                }
+            } catch (error) {
+                console.error('Error fetching market data:', error);
+                displayError('Error fetching data. Please try again later.');
+            }
+        }
+
+        function displayData(data, datatype) {
+            const stockDataElement = document.getElementById('stockData');
+            stockDataElement.innerHTML = '';
+
+            if (datatype === 'splits') {
+                data.data.forEach(item => {
+                    stockDataElement.innerHTML += `<p><strong>Symbol:</strong> ${item.symbol}</p>
+                        <p><strong>Split Date:</strong> ${item.date}</p>
+                        <p><strong>Split Ratio:</strong> ${item.split_ratio}</p><hr>`;
+                });
+            } else if (datatype === 'intraday' || datatype === 'historical' || datatype === 'eod') {
+                data.data.forEach(item => {
+                    stockDataElement.innerHTML += `<p><strong>Symbol:</strong> ${item.symbol}</p>
+                        <p><strong>Date:</strong> ${item.date}</p>
+                        <p><strong>Open:</strong> ${item.open}</p>
+                        <p><strong>High:</strong> ${item.high}</p>
+                        <p><strong>Low:</strong> ${item.low}</p>
+                        <p><strong>Close:</strong> ${item.close}</p>
+                        <p><strong>Volume:</strong> ${item.volume}</p><hr>`;
+                });
+            } else if (datatype === 'dividends') {
+                data.data.forEach(item => {
+                    stockDataElement.innerHTML += `<p><strong>Symbol:</strong> ${item.symbol}</p>
+                        <p><strong>Date:</strong> ${item.date}</p>
+                        <p><strong>Dividend:</strong> ${item.dividend}</p><hr>`;
+                });
+            }
+        }
+
+        function convertToINR() {
+            const stockData = JSON.parse(JSON.stringify(originalData));
+            stockData.data.forEach(item => {
+                if (item.open) item.open *= conversionRate;
+                if (item.high) item.high *= conversionRate;
+                if (item.low) item.low *= conversionRate;
+                if (item.close) item.close *= conversionRate;
+            });
+
+            displayData(stockData, 'historical');
+        }
+
+        function convertToUSD() {
+            displayData(originalData, 'historical');
+        }
+
+        function displayError(message) {
+            const stockDataElement = document.getElementById('stockData');
+            stockDataElement.innerHTML = `<p class="error">${message}</p>`;
+        }
+    </script>
+</body>
+
+</html>
