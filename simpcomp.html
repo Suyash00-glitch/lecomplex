@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <title>Interest Calculator</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background:linear-gradient(135deg, #3b0a45,#7b4397,#d3a0e8);
+  }
+  
+  .container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    text-align: center;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  .toggle {
+    margin-bottom: 20px;
+  }
+  
+  .toggle button {
+    background-color:#db09db; 
+    color:rgb(8, 5, 5);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size:16px;
+    text-decoration:none;
+    cursor: pointer;
+    transition: all 0.3s;
+    height: 50px;
+  }
+  
+  .toggle button:hover {
+    background: linear-gradient(135deg, #d3a0e8, #ff6bdf);
+  }
+  
+  .toggle button.active {
+    background-color: #28a745;
+  }
+  
+  .form {
+    display: none;
+  }
+  
+  .form.active {
+    display: block;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  label {
+    display: block;
+    margin: 10px 0 5px;
+  }
+  
+  input, select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    background-color:#db09db; 
+    color:rgb(8, 5, 5);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size:16px;
+    text-decoration:none;
+    cursor: pointer;
+    transition: all 0.3s;
+    height: 50px;
+  }
+  
+  button:hover {
+    background: linear-gradient(135deg, #d3a0e8, #ff6bdf);
+  }
+  
+  #result {
+    margin-top: 20px;
+  }
+  
+  canvas {
+    margin-top: 20px;
+  }
+  #savinghomebutton{
+    position: absolute;
+    bottom: -90px;
+    left: 560px;
+    height: 50px;
+  }
+  .card button{
+    background-color:#db09db; 
+    color:rgb(8, 5, 5);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size:16px;
+    text-decoration:none;
+    cursor: pointer;
+    transition: all 0.3s;
+    height: 50px;
+}
+.card{
+
+border:1px solid #ccc;
+border-radius: 10px;
+padding: 20px;
+margin: 20px;
+text-align: center;
+background-color: #f9f9f9;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Interest Calculator</h1>
+
+    <div class="toggle">
+      <button id="simpleBtn" onclick="showSimple()">Simple Interest</button>
+      <button id="compoundBtn" onclick="showCompound()">Compound Interest</button>
+    </div>
+    <div id="simpleInterestForm" class="form">
+      <h2>Simple Interest</h2>
+      <form>
+        <label for="simplePrincipal">Principal Amount (₹):</label>
+        <input type="number" id="simplePrincipal" placeholder="Enter principal amount" required>
+
+        <label for="simpleRate">Annual Interest Rate (%):</label>
+        <input type="number" id="simpleRate" placeholder="Enter interest rate" required>
+
+        <label for="simpleTime">Time Period (in months):</label>
+        <input type="number" id="simpleTime" placeholder="Enter time period" required>
+
+        <button type="button" onclick="calculateSimpleInterest()">Calculate</button>
+      </form>
+    </div>
+    <div id="compoundInterestForm" class="form hidden">
+      <h2>Compound Interest</h2>
+      <form>
+        <label for="compoundPrincipal">Principal Amount (₹):</label>
+        <input type="number" id="compoundPrincipal" placeholder="Enter principal amount" required>
+
+        <label for="compoundRate">Annual Interest Rate (%):</label>
+        <input type="number" id="compoundRate" placeholder="Enter interest rate" required>
+
+        <label for="compoundTime">Time Period (in months):</label>
+        <input type="number" id="compoundTime" placeholder="Enter time period" required>
+
+        <label for="compoundFrequency">Compounding Frequency:</label>
+        <select id="compoundFrequency">
+          <option value="1">Yearly</option>
+          <option value="4">Quarterly</option>
+          <option value="12">Monthly</option>
+          <option value="365">Daily</option>
+        </select>
+
+        <button type="button" onclick="calculateCompoundInterest()">Calculate</button>
+      </form>
+    </div>
+
+    <div id="result">
+      <h2>Results:</h2>
+      <p><strong>Principal Amount:</strong> ₹<span id="principalValue">0</span></p>
+      <p><strong>Interest Earned:</strong> ₹<span id="interestValue">0</span></p>
+      <p><strong>Total Value:</strong> ₹<span id="totalValue">0</span></p>
+    </div>
+
+    <canvas id="interestChart"></canvas>
+  </div>
+  <div id="savinghomebutton" class="card">
+    <button onclick="location.href='index.html'">
+      <i class="fa-solid fa-house"></i> 
+      Back to Home</button> 
+</div>
+  <script>
+    function showSimple() {
+  document.getElementById('simpleInterestForm').classList.add('active');
+  document.getElementById('compoundInterestForm').classList.remove('active');
+}
+
+function showCompound() {
+  document.getElementById('compoundInterestForm').classList.add('active');
+  document.getElementById('simpleInterestForm').classList.remove('active');
+}
+function calculateSimpleInterest() {
+  const principal = parseFloat(document.getElementById('simplePrincipal').value);
+  const rate = parseFloat(document.getElementById('simpleRate').value);
+  const time = parseFloat(document.getElementById('simpleTime').value);
+
+  const timeInYears = time / 12;
+  const interest = (principal * rate * timeInYears) / 100;
+  const totalValue = principal + interest;
+
+  updateResults(principal, interest, totalValue);
+}
+function calculateCompoundInterest() {
+  const principal = parseFloat(document.getElementById('compoundPrincipal').value);
+  const rate = parseFloat(document.getElementById('compoundRate').value);
+  const time = parseFloat(document.getElementById('compoundTime').value);
+  const frequency = parseInt(document.getElementById('compoundFrequency').value);
+
+  const timeInYears = time / 12;
+  const compoundRate = rate / (100 * frequency);
+  const totalValue = principal * Math.pow(1 + compoundRate, frequency * timeInYears);
+  const interest = totalValue - principal;
+
+  updateResults(principal, interest, totalValue);
+}
+function updateResults(principal, interest, totalValue) {
+  document.getElementById('principalValue').innerText = principal.toFixed(2);
+  document.getElementById('interestValue').innerText = interest.toFixed(2);
+  document.getElementById('totalValue').innerText = totalValue.toFixed(2);
+
+  updateChart(principal, interest);
+}
+let chart;
+function updateChart(principal, interest) {
+  const ctx = document.getElementById('interestChart').getContext('2d');
+  if (chart) {
+    chart.destroy();
+  }
+  chart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['Principal', 'Interest'],
+      datasets: [
+        {
+          data: [principal, interest],
+          backgroundColor: ['#4caf50', '#f44336'],
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+    },
+  });
+}
+
+  </script>
+       
+</body>
+</html>
