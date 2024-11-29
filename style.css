@@ -12,16 +12,10 @@ div{
     height: 100px;
     margin-top: 100px;
 }
-.about{
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    padding: 20px;
-    border-radius:10px ;
-    box-shadow: 0 4px 6px rgb(0,0,0,0.1);
-    background-color: rgb(223, 74, 236);
-    color: black;
-
+.about {
+    background-color:#db09db;
+    color:black;
+    font-size:large ;
 }
 .card p{
     font-size:x-large;
@@ -157,7 +151,7 @@ color:white;
 #result
 {
     text-align: center;
-    margin-top: 150px;
+    margin-top:150px;
     margin-left: 250px;
     padding: 20px;
     border-radius: 10px;
@@ -294,9 +288,6 @@ input[type=number]{
  padding: 60px;
 
 }
-
-
-
 
 
     
