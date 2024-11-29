@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance News Feed</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #282c34;
+            color: white;
+            margin-bottom: 20px;
+        }
+        #newsFeed {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        .newsItem {
+            background-color: white;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            width: 80%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .newsItem a {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .newsItem a:hover {
+            text-decoration: underline;
+        }
+        .newsItem p {
+            margin-top: 10px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Finance News Feed</h1>
+    <div id="newsFeed"></div>
+
+    <script>
+        async function fetchFinanceNews() {
+            const apiKey = '845b974f11e34b4abc3cb6b538587426';  // Your API key
+            const apiUrl = `https://newsapi.org/v2/everything?apiKey=${apiKey}&q=finance&sources=cnbc,reuters,wsj,financial-times,bloomberg&language=en`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.status === 'ok') {
+                    displayNews(data.articles);
+                } else {
+                    console.error('Error fetching finance news:', data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching news:', error);
+            }
+        }
+
+        function displayNews(articles) {
+            const newsContainer = document.getElementById('newsFeed');
+            newsContainer.innerHTML = ''; // Clear previous articles
+
+            articles.forEach((article) => {
+                const newsItem = document.createElement('div');
+                newsItem.classList.add('newsItem');
+                newsItem.innerHTML = `
+                    <a href="${article.url}" target="_blank">${article.title}</a>
+                    <p>${article.description || 'No description available.'}</p>
+                `;
+                newsContainer.appendChild(newsItem);
+            });
+        }
+
+        // Fetch and display finance news when the page loads
+        fetchFinanceNews();
+    </script>
+
+</body>
+</html>
