@@ -8,7 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background:#f4f4f4;
+            background: #f4f4f4;
         }
         label {
             margin-bottom: 10px;
@@ -109,14 +109,13 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Payment schedule will be inserted here -->
+                
             </tbody>
         </table>
     </div>
 
     <script>
         function calculateEMI() {
-            // Get user input
             const loanAmount = parseFloat(document.getElementById('loanAmount').value);
             const annualRate = parseFloat(document.getElementById('annualRate').value) / 100;
             const loanTerm = parseInt(document.getElementById('loanTerm').value);
@@ -124,33 +123,23 @@
             const extraEMI = parseFloat(document.getElementById('extraEMI').value);
             const extraEMIFrequency = parseInt(document.getElementById('extraEMIFrequency').value);
 
-            // Validate inputs
             if (isNaN(loanAmount) || isNaN(annualRate) || isNaN(loanTerm) || isNaN(emiFrequency) || isNaN(extraEMI)) {
                 alert('Please provide valid inputs.');
                 return;
             }
 
-            // Monthly interest rate
             const monthlyRate = annualRate / 12;
+            const totalPayments = loanTerm * emiFrequency;
 
-            // Total payments (based on frequency)
-            const totalPayments = loanTerm * emiFrequency;  // More frequent payments mean faster loan repayment
-
-            // EMI formula for frequency-based EMI
             const emi = loanAmount * monthlyRate * Math.pow(1 + monthlyRate, totalPayments) / (Math.pow(1 + monthlyRate, totalPayments) - 1);
 
-            // Track remaining loan balance and total paid
             let remainingLoan = loanAmount;
             let totalPaid = 0;
             let paymentSchedule = [];
             let loanDurationWithExtra = totalPayments;
             let interestPaid = 0;
 
-            // Calculate interest without extra EMI first (baseline)
-            let totalInterestWithoutExtra = 0;
-            let remainingLoanWithoutExtra = loanAmount;
-            let totalPaidWithoutExtra = 0;
-
+            
             for (let i = 1; i <= totalPayments; i++) {
                 const interest = remainingLoan * monthlyRate;
                 const principal = emi - interest;
@@ -158,7 +147,6 @@
                 totalPaid += emi;
                 interestPaid += interest;
 
-                // Store payment breakdown
                 paymentSchedule.push({
                     paymentNumber: i,
                     principalPortion: principal.toFixed(2),
@@ -167,45 +155,43 @@
                     remainingLoan: remainingLoan.toFixed(2)
                 });
 
-                // Apply extra EMI if the user has set a frequency
+            
                 if (i % extraEMIFrequency === 0 && extraEMIFrequency > 0) {
                     remainingLoan -= extraEMI;
                     totalPaid += extraEMI;
-                    loanDurationWithExtra--;  // Loan gets paid off earlier
+                    loanDurationWithExtra--; 
                 }
 
-                // If loan is paid off early, exit loop
                 if (remainingLoan <= 0) {
-                    loanDurationWithExtra = i;  // Finalize the new loan duration
+                    loanDurationWithExtra = i;  
                     break;
                 }
             }
 
-            // Now calculate interest without extra EMI
+            
+            let totalInterestWithoutExtra = 0;
+            let remainingLoanWithoutExtra = loanAmount;
             for (let i = 1; i <= totalPayments; i++) {
                 const interestWithoutExtra = remainingLoanWithoutExtra * monthlyRate;
                 const principalWithoutExtra = emi - interestWithoutExtra;
                 remainingLoanWithoutExtra -= principalWithoutExtra;
-                totalPaidWithoutExtra += emi;
                 totalInterestWithoutExtra += interestWithoutExtra;
 
-                // Stop when the loan is paid off
                 if (remainingLoanWithoutExtra <= 0) break;
             }
 
-            // Interest Savings calculation (Difference in interest paid)
             const interestSavings = totalInterestWithoutExtra - interestPaid;
 
-            // Display results
+            
             document.getElementById('emiAmount').textContent = emi.toFixed(2);
             document.getElementById('totalAmountPaid').textContent = totalPaid.toFixed(2);
             document.getElementById('loanDuration').textContent = totalPayments + ' payments (' + (emiFrequency === 12 ? 'monthly' : emiFrequency === 4 ? 'quarterly' : 'yearly') + ')';
             document.getElementById('newLoanDuration').textContent = loanDurationWithExtra + ' payments (' + (emiFrequency === 12 ? 'monthly' : emiFrequency === 4 ? 'quarterly' : 'yearly') + ')';
             document.getElementById('interestSavings').textContent = interestSavings > 0 ? interestSavings.toFixed(2) : '0';
 
-            // Display payment schedule in the table
+            
             const tbody = document.getElementById('paymentSchedule').getElementsByTagName('tbody')[0];
-            tbody.innerHTML = ''; // Clear previous data
+            tbody.innerHTML = '';
             paymentSchedule.forEach(payment => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -218,7 +204,6 @@
                 tbody.appendChild(row);
             });
 
-            // Show the results section
             document.getElementById('result').classList.remove('hidden');
         }
     </script>
