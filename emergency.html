@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan EMI Breakdown with Extra Payments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f4f4f4;
+        }
+        label {
+            margin-bottom: 10px;
+            display: block;
+            font-size: 1.2rem;
+        }
+        input, select {
+            padding: 10px;
+            font-size: 1rem;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+        .hidden {
+            display: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Loan EMI Calculator with Extra Payments</h1>
+
+    <label for="loanAmount">Enter Loan Amount</label>
+    <input type="number" id="loanAmount" placeholder="Enter loan amount" />
+
+    <label for="annualRate">Annual Interest Rate (%)</label>
+    <input type="number" id="annualRate" placeholder="Enter annual interest rate" />
+
+    <label for="loanTerm">Loan Term (years)</label>
+    <input type="number" id="loanTerm" placeholder="Enter loan term in years" />
+
+    <label for="emiFrequency">EMI Frequency</label>
+    <select id="emiFrequency">
+        <option value="12">Monthly</option>
+        <option value="4">Quarterly</option>
+        <option value="1">Yearly</option>
+    </select>
+
+    <label for="extraEMI">Extra EMI Amount (₹)</label>
+    <input type="number" id="extraEMI" placeholder="Enter extra EMI amount" />
+
+    <label for="extraEMIFrequency">Extra EMI Frequency</label>
+    <select id="extraEMIFrequency">
+        <option value="1">Yearly</option>
+        <option value="4">Quarterly</option>
+        <option value="12">Monthly</option>
+        <option value="0">None</option>
+    </select>
+
+    <button onclick="calculateEMI()">Calculate EMI</button>
+
+    <div id="result" class="hidden">
+        <h2>EMI Breakdown</h2>
+        <p><strong>EMI Amount:</strong> ₹<span id="emiAmount"></span></p>
+        <p><strong>Total Amount Paid:</strong> ₹<span id="totalAmountPaid"></span></p>
+        <p><strong>Loan Duration:</strong> <span id="loanDuration"></span></p>
+        <p><strong>New Loan Duration (with extra payments):</strong> <span id="newLoanDuration"></span></p>
+        <p><strong>Interest Savings (₹):</strong> ₹<span id="interestSavings"></span></p>
+        <h3>Payment Breakdown</h3>
+        <table id="paymentSchedule">
+            <thead>
+                <tr>
+                    <th>Payment #</th>
+                    <th>Principal Portion (₹)</th>
+                    <th>Interest Portion (₹)</th>
+                    <th>Total EMI (₹)</th>
+                    <th>Remaining Loan (₹)</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function calculateEMI() {
+            const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            const annualRate = parseFloat(document.getElementById('annualRate').value) / 100;
+            const loanTerm = parseInt(document.getElementById('loanTerm').value);
+            const emiFrequency = parseInt(document.getElementById('emiFrequency').value);
+            const extraEMI = parseFloat(document.getElementById('extraEMI').value);
+            const extraEMIFrequency = parseInt(document.getElementById('extraEMIFrequency').value);
+
+            if (isNaN(loanAmount) || isNaN(annualRate) || isNaN(loanTerm) || isNaN(emiFrequency) || isNaN(extraEMI)) {
+                alert('Please provide valid inputs.');
+                return;
+            }
+
+            const monthlyRate = annualRate / 12;
+            const totalPayments = loanTerm * emiFrequency;
+
+            const emi = loanAmount * monthlyRate * Math.pow(1 + monthlyRate, totalPayments) / (Math.pow(1 + monthlyRate, totalPayments) - 1);
+
+            let remainingLoan = loanAmount;
+            let totalPaid = 0;
+            let paymentSchedule = [];
+            let loanDurationWithExtra = totalPayments;
+            let interestPaid = 0;
+
+            
+            for (let i = 1; i <= totalPayments; i++) {
+                const interest = remainingLoan * monthlyRate;
+                const principal = emi - interest;
+                remainingLoan -= principal;
+                totalPaid += emi;
+                interestPaid += interest;
+
+                paymentSchedule.push({
+                    paymentNumber: i,
+                    principalPortion: principal.toFixed(2),
+                    interestPortion: interest.toFixed(2),
+                    totalEMI: emi.toFixed(2),
+                    remainingLoan: remainingLoan.toFixed(2)
+                });
+
+            
+                if (i % extraEMIFrequency === 0 && extraEMIFrequency > 0) {
+                    remainingLoan -= extraEMI;
+                    totalPaid += extraEMI;
+                    loanDurationWithExtra--; 
+                }
+
+                if (remainingLoan <= 0) {
+                    loanDurationWithExtra = i;  
+                    break;
+                }
+            }
+
+            
+            let totalInterestWithoutExtra = 0;
+            let remainingLoanWithoutExtra = loanAmount;
+            for (let i = 1; i <= totalPayments; i++) {
+                const interestWithoutExtra = remainingLoanWithoutExtra * monthlyRate;
+                const principalWithoutExtra = emi - interestWithoutExtra;
+                remainingLoanWithoutExtra -= principalWithoutExtra;
+                totalInterestWithoutExtra += interestWithoutExtra;
+
+                if (remainingLoanWithoutExtra <= 0) break;
+            }
+
+            const interestSavings = totalInterestWithoutExtra - interestPaid;
+
+            
+            document.getElementById('emiAmount').textContent = emi.toFixed(2);
+            document.getElementById('totalAmountPaid').textContent = totalPaid.toFixed(2);
+            document.getElementById('loanDuration').textContent = totalPayments + ' payments (' + (emiFrequency === 12 ? 'monthly' : emiFrequency === 4 ? 'quarterly' : 'yearly') + ')';
+            document.getElementById('newLoanDuration').textContent = loanDurationWithExtra + ' payments (' + (emiFrequency === 12 ? 'monthly' : emiFrequency === 4 ? 'quarterly' : 'yearly') + ')';
+            document.getElementById('interestSavings').textContent = interestSavings > 0 ? interestSavings.toFixed(2) : '0';
+
+            
+            const tbody = document.getElementById('paymentSchedule').getElementsByTagName('tbody')[0];
+            tbody.innerHTML = '';
+            paymentSchedule.forEach(payment => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${payment.paymentNumber}</td>
+                    <td>${payment.principalPortion}</td>
+                    <td>${payment.interestPortion}</td>
+                    <td>${payment.totalEMI}</td>
+                    <td>${payment.remainingLoan}</td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            document.getElementById('result').classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>
